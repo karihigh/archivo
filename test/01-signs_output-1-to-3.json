@@ -1,0 +1,389 @@
+{
+  "responses": [
+    {
+      "textAnnotations": {
+        "locale": "",
+        "description": ""
+      },
+      "fullTextAnnotation": {
+        "text": ""
+      },
+      "context": {
+        "uri": "gs://chile-signs/01-signs/00000.jpg"
+      },
+      "localizedObjectAnnotations": []
+    },
+    {
+      "labelAnnotations": [
+        {
+          "mid": "/m/01bqvp",
+          "description": "Sky",
+          "score": 0.8622455,
+          "topicality": 0.8622455
+        },
+        {
+          "mid": "/m/071j9r",
+          "description": "Cool",
+          "score": 0.8327281,
+          "topicality": 0.8327281
+        },
+        {
+          "mid": "/m/067408",
+          "description": "Album cover",
+          "score": 0.69725907,
+          "topicality": 0.69725907
+        },
+        {
+          "mid": "/m/07j7r",
+          "description": "Tree",
+          "score": 0.68692183,
+          "topicality": 0.68692183
+        },
+        {
+          "mid": "/m/03gq5hm",
+          "description": "Font",
+          "score": 0.6857238,
+          "topicality": 0.6857238
+        },
+        {
+          "mid": "/m/01n5jq",
+          "description": "Poster",
+          "score": 0.6736226,
+          "topicality": 0.6736226
+        },
+        {
+          "mid": "/m/016pp7",
+          "description": "Happy",
+          "score": 0.6417364,
+          "topicality": 0.6417364
+        },
+        {
+          "mid": "/m/05wkw",
+          "description": "Photography",
+          "score": 0.62422496,
+          "topicality": 0.62422496
+        },
+        {
+          "mid": "/m/07bxq",
+          "description": "Tourism",
+          "score": 0.608511,
+          "topicality": 0.608511
+        },
+        {
+          "mid": "/m/09d_r",
+          "description": "Mountain",
+          "score": 0.6030708,
+          "topicality": 0.6030708
+        }
+      ],
+      "textAnnotations": {
+        "locale": "es",
+        "description": "ES LA COPIA\nINFELIZ\ndEL EDÉN\n"
+      },
+      "imagePropertiesAnnotation": {
+        "dominantColors": {
+          "colors": [
+            {
+              "color": {
+                "red": 176,
+                "green": 36,
+                "blue": 19
+              },
+              "score": 0.1288015,
+              "pixelFraction": 0.0062365592
+            },
+            {
+              "color": {
+                "red": 114,
+                "green": 244,
+                "blue": 251
+              },
+              "score": 0.06916045,
+              "pixelFraction": 0.085537635
+            },
+            {
+              "color": {
+                "red": 192,
+                "green": 250,
+                "blue": 249
+              },
+              "score": 0.046891633,
+              "pixelFraction": 0.053387098
+            },
+            {
+              "color": {
+                "red": 12,
+                "green": 182,
+                "blue": 155
+              },
+              "score": 0.0363433,
+              "pixelFraction": 0.019301075
+            },
+            {
+              "color": {
+                "red": 63,
+                "green": 51,
+                "blue": 29
+              },
+              "score": 0.010089274,
+              "pixelFraction": 0.047903225
+            },
+            {
+              "color": {
+                "red": 35,
+                "green": 96,
+                "blue": 25
+              },
+              "score": 0.0032501654,
+              "pixelFraction": 0.009301076
+            },
+            {
+              "color": {
+                "red": 175,
+                "green": 146,
+                "blue": 87
+              },
+              "score": 0.0021837477,
+              "pixelFraction": 0.0019354839
+            },
+            {
+              "color": {
+                "red": 168,
+                "green": 41,
+                "blue": 29
+              },
+              "score": 0.096842796,
+              "pixelFraction": 0.006505376
+            },
+            {
+              "color": {
+                "red": 202,
+                "green": 68,
+                "blue": 52
+              },
+              "score": 0.082029805,
+              "pixelFraction": 0.0043548387
+            },
+            {
+              "color": {
+                "red": 203,
+                "green": 55,
+                "blue": 36
+              },
+              "score": 0.073846266,
+              "pixelFraction": 0.0032258064
+            }
+          ]
+        }
+      },
+      "fullTextAnnotation": {
+        "text": "ES LA COPIA\nINFELIZ\ndEL EDÉN\n"
+      },
+      "context": {
+        "uri": "gs://chile-signs/01-signs/00001.jpg"
+      },
+      "localizedObjectAnnotations": [
+        {
+          "name": "Pants",
+          "score": 0.9087856
+        },
+        {
+          "name": "Person",
+          "score": 0.87156224
+        },
+        {
+          "name": "Top",
+          "score": 0.8647199
+        },
+        {
+          "name": "Shoe",
+          "score": 0.59596455
+        },
+        {
+          "name": "Footwear",
+          "score": 0.5432067
+        },
+        {
+          "name": "Shoe",
+          "score": 0.5253614
+        }
+      ]
+    },
+    {
+      "labelAnnotations": [
+        {
+          "mid": "/m/011s0",
+          "description": "Advertising",
+          "score": 0.89077884,
+          "topicality": 0.89077884
+        },
+        {
+          "mid": "/m/01knjb",
+          "description": "Billboard",
+          "score": 0.8120397,
+          "topicality": 0.8120397
+        },
+        {
+          "mid": "/m/03gq5hm",
+          "description": "Font",
+          "score": 0.78258353,
+          "topicality": 0.78258353
+        },
+        {
+          "mid": "/m/0m9cj",
+          "description": "Banner",
+          "score": 0.7510111,
+          "topicality": 0.7510111
+        },
+        {
+          "mid": "/m/02_784",
+          "description": "Display advertising",
+          "score": 0.694195,
+          "topicality": 0.694195
+        },
+        {
+          "mid": "/m/03nfmq",
+          "description": "Architecture",
+          "score": 0.65451187,
+          "topicality": 0.65451187
+        },
+        {
+          "mid": "/m/0cgh4",
+          "description": "Building",
+          "score": 0.6437648,
+          "topicality": 0.6437648
+        },
+        {
+          "mid": "/m/0bkqqh",
+          "description": "Signage",
+          "score": 0.62997764,
+          "topicality": 0.62997764
+        },
+        {
+          "mid": "/m/01x314",
+          "description": "Facade",
+          "score": 0.5649075,
+          "topicality": 0.5649075
+        },
+        {
+          "mid": "/m/05hg54",
+          "description": "Commercial building",
+          "score": 0.537633,
+          "topicality": 0.537633
+        }
+      ],
+      "textAnnotations": {
+        "locale": "es",
+        "description": "EL CAMBID NO ESTA\nEN LA MONEDA\nSINO EN LAS\nCRANDES ALAMERS\nCHILE NO SE VEN\nCHE\nACES\n"
+      },
+      "imagePropertiesAnnotation": {
+        "dominantColors": {
+          "colors": [
+            {
+              "color": {
+                "red": 75,
+                "green": 90,
+                "blue": 110
+              },
+              "score": 0.23705812,
+              "pixelFraction": 0.17
+            },
+            {
+              "color": {
+                "red": 76,
+                "green": 40,
+                "blue": 59
+              },
+              "score": 0.12782443,
+              "pixelFraction": 0.014027778
+            },
+            {
+              "color": {
+                "red": 9,
+                "green": 22,
+                "blue": 42
+              },
+              "score": 0.088880226,
+              "pixelFraction": 0.1257639
+            },
+            {
+              "color": {
+                "red": 121,
+                "green": 189,
+                "blue": 245
+              },
+              "score": 0.03551625,
+              "pixelFraction": 0.1423611
+            },
+            {
+              "color": {
+                "red": 94,
+                "green": 110,
+                "blue": 130
+              },
+              "score": 0.1447916,
+              "pixelFraction": 0.0575
+            },
+            {
+              "color": {
+                "red": 39,
+                "green": 53,
+                "blue": 74
+              },
+              "score": 0.08228976,
+              "pixelFraction": 0.119375
+            },
+            {
+              "color": {
+                "red": 105,
+                "green": 72,
+                "blue": 90
+              },
+              "score": 0.052473918,
+              "pixelFraction": 0.008958333
+            },
+            {
+              "color": {
+                "red": 68,
+                "green": 43,
+                "blue": 70
+              },
+              "score": 0.03570833,
+              "pixelFraction": 0.008194445
+            },
+            {
+              "color": {
+                "red": 82,
+                "green": 30,
+                "blue": 54
+              },
+              "score": 0.031855088,
+              "pixelFraction": 0.0020833334
+            },
+            {
+              "color": {
+                "red": 100,
+                "green": 79,
+                "blue": 104
+              },
+              "score": 0.027891329,
+              "pixelFraction": 0.006736111
+            }
+          ]
+        }
+      },
+      "fullTextAnnotation": {
+        "text": "EL CAMBID NO ESTA\nEN LA MONEDA\nSINO EN LAS\nCRANDES ALAMERS\nCHILE NO SE VEN\nCHE\nACES\n"
+      },
+      "context": {
+        "uri": "gs://chile-signs/01-signs/00002.jpg"
+      },
+      "localizedObjectAnnotations": [
+        {
+          "name": "Building",
+          "score": 0.866153
+        }
+      ]
+    }
+  ]
+}
