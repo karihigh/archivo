@@ -6,6 +6,10 @@
   -webkit-font-smoothing: antialiased;
 }
 
+.container {
+  padding: 20px;
+}
+
 .item {
   margin: 0.15rem;
   position: relative;
