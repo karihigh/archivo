@@ -1,8 +1,10 @@
 console.log(data);
+// data.responses = data.responses.slice(0,20);
 let $grid = document.querySelector('.grid');
 let $loading = document.querySelector('.loading');
 let $labelFilters = document.querySelector('.filters--labels select');
 let $objectFilters = document.querySelector('.filters--objects select');
+let $wordFilters = document.querySelector('.filters--words input');
 let COUNT = 0;
 
 let unescapeString = (str) => {
@@ -30,22 +32,24 @@ let loadImg = (url, wrapper) => {
 let loadDom = () => {
   let labels = new Set();
   let objects = new Set();
+  let words = new Set();
   let imagePromises = [];
 
   // ~~~~~~~~~~~~ GET DATA ~~~~~~~~~~~~
   data.responses.forEach( d => {
     let wrapper = document.createElement("div");
+    let localLables = [];
+    let localObjects = [];
+    let localWords = [];
     wrapper.classList.add("item");
 
-    d.labelAnnotations.forEach( a => {
-      labels.add(a.description);
-      wrapper.classList.add(escapeString(a.description));
-    })
+    d.labelAnnotations.forEach( a => { labels.add(a.description); localLables.push(a.description); } );
+    d.localizedObjectAnnotations.forEach( a => { objects.add(a.name); localObjects.push(a.name); } );
+    d.fullTextAnnotation.text.split(/[\n\r\s]/).forEach( a => { words.add(a); localWords.push(a); } );
 
-    d.localizedObjectAnnotations.forEach( a => {
-      objects.add(a.name);
-      wrapper.classList.add(escapeString(a.name));
-    })
+    wrapper.setAttribute('data-labels', Array.from(localLables).join(' '));
+    wrapper.setAttribute('data-objects', Array.from(localObjects).join(' '));
+    wrapper.setAttribute('data-words', Array.from(localWords).join(' '));
 
     let url = d.context.uri.replace("gs://", "https://storage.cloud.google.com/");
     let imgp = loadImg(url, wrapper);
@@ -62,11 +66,10 @@ let loadDom = () => {
 
   labels.forEach( f => {
     let op = document.createElement('option');
-    op.value = `.${escapeString(f)}`;
+    op.value = `${f}`;
     op.textContent = f;
     $labelFilters.appendChild(op);
   })
-
 
 
   // ~~~~~~~~~~~~ LOAD OBJECT DROPDOWN ~~~~~~~~~~~~
@@ -77,7 +80,7 @@ let loadDom = () => {
 
   objects.forEach( f => {
     let op = document.createElement('option');
-    op.value = `.${escapeString(f)}`;
+    op.value = `${f}`;
     op.textContent = f;
     $objectFilters.appendChild(op);
   })
@@ -97,12 +100,34 @@ let loadDom = () => {
     });
 
     $labelFilters.addEventListener( 'change', function(e) {
-      iso.arrange({ filter: $labelFilters.value });
+      $objectFilters.options[0].selected = true;
+      iso.arrange({
+        filter: function(item) {
+          return $labelFilters.value === "*" || item.dataset.labels.includes($labelFilters.value);
+        }
+      });
     });
 
     $objectFilters.addEventListener( 'change', function(e) {
-      iso.arrange({ filter: $objectFilters.value });
+      $labelFilters.options[0].selected = true;
+      iso.arrange({
+        filter: function(item) {
+          return $objectFilters.value === "*" || item.dataset.objects.includes($objectFilters.value);
+        }
+      });
     });
+
+    $wordFilters.addEventListener( 'input', function(e) {
+      $labelFilters.options[0].selected = true;
+      $objectFilters.options[0].selected = true;
+      iso.arrange({
+        filter: function(item) {
+          let r = new RegExp($wordFilters.value, "gi");
+          return r.test(item.dataset.words);
+        }
+      });
+    });
+
 
     document.querySelectorAll('.-hidden').forEach( x => x.classList.remove('-hidden') );
     $loading.classList.add('-hidden');
