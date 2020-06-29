@@ -1,11 +1,13 @@
 console.log(data);
-// data.responses = data.responses.slice(0,20);
+data.responses = data.responses.slice(0,200);
 let $grid = document.querySelector('.grid');
 let $loading = document.querySelector('.loading');
 let $labelFilters = document.querySelector('.filters--labels select');
 let $objectFilters = document.querySelector('.filters--objects select');
 let $wordFilters = document.querySelector('.filters--words input');
 let COUNT = 0;
+
+let brokenUrls = [];
 
 let unescapeString = (str) => {
   return str.replace(/-/gi, ' ').replace(/\+/gi, '&');
@@ -23,6 +25,8 @@ let loadImg = (url, wrapper) => {
       resolve({img: img, wrapper: wrapper})
     });
     img.addEventListener('error', () => {
+      console.log(`ERROR: ${url}`);
+      brokenUrls.push(url);
       reject(new Error(`Failed to load image's URL: ${url}`));
     })
     img.src = url;
@@ -43,15 +47,15 @@ let loadDom = () => {
     let localWords = [];
     wrapper.classList.add("item");
 
-    d.labelAnnotations.forEach( a => { labels.add(a.description); localLables.push(a.description); } );
-    d.localizedObjectAnnotations.forEach( a => { objects.add(a.name); localObjects.push(a.name); } );
-    d.fullTextAnnotation.text.split(/[\n\r\s]/).forEach( a => { words.add(a); localWords.push(a); } );
+    d.labels.forEach( a => { labels.add(a); localLables.push(a); } );
+    d.objects.forEach( a => { objects.add(a); localObjects.push(a); } );
+    d.words.split(/[\n\r\s]/).forEach( a => { words.add(a); localWords.push(a); } );
 
     wrapper.setAttribute('data-labels', Array.from(localLables).join(' '));
     wrapper.setAttribute('data-objects', Array.from(localObjects).join(' '));
     wrapper.setAttribute('data-words', Array.from(localWords).join(' '));
 
-    let url = d.context.uri.replace("gs://", "https://storage.cloud.google.com/");
+    let url = d.url;
     let imgp = loadImg(url, wrapper);
     imagePromises.push(imgp);
   });

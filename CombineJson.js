@@ -4,7 +4,7 @@ const path = require('path');
 const fs = require('fs');
 
 //joining path of directory
-const directoryPath = path.join(__dirname, 'BabyJasons/signs');
+const directoryPath = path.join(__dirname, 'all/');
 
 let papaJason = {
   responses: []
@@ -24,12 +24,25 @@ fs.readdir(directoryPath, function (err, files) {
         let jason = JSON.parse(fs.readFileSync(babyFile));
 
         jason.responses.forEach( function(response) {
-          papaJason.responses.push(response);
+          let labels = [];
+          if(response.labelAnnotations) labels = response.labelAnnotations.map( l=> l.description );
+          let objects = [];
+          if(response.localizedObjectAnnotations) objects = response.localizedObjectAnnotations.map(l=>l.name);
+
+          let o = {
+            labels: labels,
+            objects: objects,
+            words: response.fullTextAnnotation ? response.fullTextAnnotation.text : '',
+            url: response.context.uri.replace("gs://", "https://storage.cloud.google.com/")
+          }
+          console.log(o.url);
+          papaJason.responses.push(o);
         })
         console.log(papaJason.responses.length);
     });
 
-    fs.writeFileSync(`./signs.json`, JSON.stringify(papaJason));
+    // console.log(papaJason);
+    fs.writeFileSync(`./alldata.js`, `let data = ${JSON.stringify(papaJason)}`);
 
 });
 
