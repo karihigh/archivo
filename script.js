@@ -1,7 +1,12 @@
 console.log(data);
-data.responses = data.responses.slice(0,200);
+
+// change to whatever range
+data.responses = data.responses.slice(0,2000);
+
+
 let $grid = document.querySelector('.grid');
-let $loading = document.querySelector('.loading');
+let $overlay = document.querySelector('.loading');
+let $loading = document.querySelector('.loading p');
 let $labelFilters = document.querySelector('.filters--labels select');
 let $objectFilters = document.querySelector('.filters--objects select');
 let $wordFilters = document.querySelector('.filters--words input');
@@ -17,19 +22,20 @@ let escapeString = (str) => {
   return str.trim().replace(/ /gi, '-').replace(/&/gi, '+').toLowerCase();
 }
 
-let loadImg = (url, wrapper) => {
+let loadImg = (url, wrapper, i) => {
   return new Promise( (resolve, reject) => {
     let img = new Image();
     img.addEventListener('load', e => {
       $loading.textContent = `${++COUNT} of ${data.responses.length} images loaded`;
       resolve({img: img, wrapper: wrapper})
     });
-    img.addEventListener('error', () => {
-      console.log(`ERROR: ${url}`);
+    img.addEventListener('error', (e) => {
       brokenUrls.push(url);
       reject(new Error(`Failed to load image's URL: ${url}`));
     })
-    img.src = url;
+    setTimeout( () => {
+      img.src = url;
+    },i*10);
   })
 }
 
@@ -40,7 +46,7 @@ let loadDom = () => {
   let imagePromises = [];
 
   // ~~~~~~~~~~~~ GET DATA ~~~~~~~~~~~~
-  data.responses.forEach( d => {
+  data.responses.forEach( (d,i) => {
     let wrapper = document.createElement("div");
     let localLables = [];
     let localObjects = [];
@@ -56,7 +62,7 @@ let loadDom = () => {
     wrapper.setAttribute('data-words', Array.from(localWords).join(' '));
 
     let url = d.url;
-    let imgp = loadImg(url, wrapper);
+    let imgp = loadImg(url, wrapper, i);
     imagePromises.push(imgp);
   });
 
@@ -92,10 +98,12 @@ let loadDom = () => {
 
 
   // ~~~~~~~~~~~~ LOAD ALL IMAGES AND INIT ISO ~~~~~~~~~~~~
-  Promise.all(imagePromises).then( (vals) => {
-    vals.forEach( (val) => {
-      val.wrapper.appendChild(val.img);
-      $grid.appendChild(val.wrapper);
+  Promise.allSettled(imagePromises).then( (results) => {
+    let res = results.filter( r => r.status === "fulfilled" );
+
+    res.forEach( (r) => {
+      r.value.wrapper.appendChild(r.value.img);
+      $grid.appendChild(r.value.wrapper);
     })
 
     let iso = new Isotope( '.grid', {
@@ -134,7 +142,7 @@ let loadDom = () => {
 
 
     document.querySelectorAll('.-hidden').forEach( x => x.classList.remove('-hidden') );
-    $loading.classList.add('-hidden');
+    $overlay.classList.add('-hidden');
   })
 }
 
