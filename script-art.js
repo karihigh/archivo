@@ -1,7 +1,7 @@
 console.log(data);
 
 // change to whatever range
-data.responses = data.responses.slice(5000,7000);
+data.responses = data.responses.slice(5000,6000);
 
 
 let $grid = document.querySelector('.grid');
