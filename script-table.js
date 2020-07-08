@@ -9,14 +9,24 @@ $(document).ready( function () {
   data.forEach( d => {
     let str = '';
     columnNames.forEach( c => {
-      str += `<td> ${d[c]} </td>`;
+      str += `<td>  ${d[c]} </td>`;
     })
     $("#table_id tbody").append(`<tr> ${str} </tr>`);
   })
 
   let dtColumns = columnNames.map( c => {
-    return { data: c };
-  } );
+    if(c=="file") {
+      return {
+        data: c,
+        fnCreatedCell: function (nTd, sData, oData, iRow, iCol) {
+            $(nTd).html("<a href='"+oData.file+"'>"+oData.file+"</a>");
+        }
+      }
+    } else {
+      return { data: c };
+    }
+
+  });
 
   $('#table_id').DataTable({
     data: data,
