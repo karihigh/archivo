@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+    <!-- <script src="test/01-signs_output-1-to-100.js" charset="utf-8"></script> -->
+    <script src="alldata.js" charset="utf-8"></script>
+    <script src="https://unpkg.com/isotope-layout@3/dist/isotope.pkgd.min.js"></script>
+    <link rel="stylesheet" href="style.css">
+  </head>
+  <body>
+    <div class="row">
+      <div class="column">
+        <h1 class="-hidden">🗃 ARCHIVO CALLE</h1>
+      </div>
+      <div class="column column-left">
+        <a href="index.html">⬅️ INICIO</a>
+      </div>
+    </div>
+    <div>
+      <h2>🖼 ARTE CALLEJERO</h2>
+      <h4>Filtros obtenidos por proceso Google Cloud Vision</h4>
+    </div>
+
+    <div class="controls -hidden">
+      <div class="filters filters--labels">
+        <span>ETIQUETAS </span>
+        <select> </select>
+      </div>
+      <div class="filters filters--objects">
+        <span>OBJETOS </span>
+        <select> </select>
+      </div>
+      <div class="filters filters--words">
+        <span>TEXTO </span>
+        <input type="text">
+      </div>
+    </div>
+
+    <div class="grid"> </div>
+    <div class="loading">
+      <p> 0 of XXXX images loaded </p>
+    </div>
+
+    <script src="script-art.js" charset="utf-8"></script>
+  </body>
+</html>
