@@ -1,7 +1,8 @@
 console.log(data);
 
-// change to whatever range
-data.responses = data.responses.slice(0,1000);
+// change range to load
+//data.responses = data.responses.slice(0,10);
+data.responses = data.responses.slice(0,1500);
 
 
 let $grid = document.querySelector('.grid');
