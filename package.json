@@ -8,7 +8,7 @@
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "http-server start"
+    "start": "http-server -o index-art.html"
   },
   "repository": {
     "type": "git",
@@ -19,5 +19,9 @@
   "bugs": {
     "url": "https://github.com/karihigh/archivo/issues"
   },
-  "homepage": "https://github.com/karihigh/archivo#readme"
+  "homepage": "https://github.com/karihigh/archivo#readme",
+  "devDependencies": {
+    "http-server": "^14.1.1",
+    "node-http-server": "^8.1.5"
+  }
 }
