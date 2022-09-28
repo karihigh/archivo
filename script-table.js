@@ -1,40 +1,38 @@
-$(document).ready( function () {
+$(document).ready(function () {
+  let columnNames = ["url", "words", "labels", "objects"];
 
-  let columnNames = ["file", "text", "labels", "objects"];
-
-  columnNames.forEach( c => {
+  columnNames.forEach((c) => {
     $("#table_id thead tr").append(`<th> ${c} </th>`);
-  })
+  });
 
-  data.forEach( d => {
-    let str = '';
-    columnNames.forEach( c => {
+  data.forEach((d) => {
+    let str = "";
+    columnNames.forEach((c) => {
       str += `<td>  ${d[c]} </td>`;
-    })
+    });
     $("#table_id tbody").append(`<tr> ${str} </tr>`);
-  })
+  });
 
-  let dtColumns = columnNames.map( c => {
-    if(c=="file") {
+  let dtColumns = columnNames.map((c) => {
+    if (c == "url") {
       return {
         data: c,
         fnCreatedCell: function (nTd, sData, oData, iRow, iCol) {
-            $(nTd).html("<a href='"+oData.file+"'>"+oData.file+"</a>");
-        }
-      }
+          $(nTd).html("<a href='" + oData.url + "'>" + oData.url + "</a>");
+        },
+      };
     } else {
       return { data: c };
     }
-
   });
 
-  $('#table_id').DataTable({
+  console.log(data);
+
+  $("#table_id").DataTable({
     data: data,
-    columns: dtColumns
+    columns: dtColumns,
   });
-
 });
-
 
 /*
 Want to make the table in spanish: https://datatables.net/plug-ins/i18n/

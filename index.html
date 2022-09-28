@@ -1,44 +1,47 @@
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
   <head>
-    <meta charset="utf-8">
-    <link rel="stylesheet" href="style-intro.css">
-    <title>Archivo Calle</title>
+    <meta charset="utf-8" />
+    <title></title>
+    <!-- <script src="test/01-signs_output-1-to-100.js" charset="utf-8"></script> -->
+    <link rel="stylesheet" href="style.css" />
   </head>
   <body>
     <div class="row">
-      <div class="column">
-        <h1>🗃 ARCHIVO CALLE</h1>
-        <h2>LEVANTAMIENTO EN CHILE 2019-2020 🏴</h2>
-        <h4>Proyecto en desarollo</h4>
-        <p>Este archivo se compone de 6000 imágenes obtenidas de cuentas públicas de Instagram*. Luego fueron procesadas por el algoritmo de visión por computador de <a href="https://cloud.google.com/vision">Google Cloud</a> con el objetivo de extraer el texto y etiquetar las imágenes. Esto para poder categorizar y ordenar los mensajes en las calles y poder analizar el levantamiento en Chile (2019) desde el plano visual, callejero y público.</p>
-
-        <p>Este sitio es un prototipo de explorador de los datos obtenidos. Se pueden revisar por completo en formato de tabla o en dos galerías limitadas a 1000 imágenes.</p>
-
-        <p class="italic">*Cuentas de instagram: @carteles_chile, @carteles_chillan, @carteles_marchas_chile, @carteles.chile, @cartelescontrafusiles, @cartelesdecambio, @chile_carteles.</p>
-
-        <p class="italic">Este archivo fue realizado como proyecto de tesis de magíster de <a href="https://karinahy.com/reading-the-streets">Karina Hyland</a> en el programa Interactive Telecommunications de NYU (New York University) en mayo 2020. Este prototipo fue desarrollado con la ayuda de <a href="http://playdo.io/">Sukanya Aneja</a>.</p>
+      <div class="column mono">
+        <h1 class="-hidden">🗃 ARCHIVO CALLE</h1>
+      </div>
+      <div class="column column-left">
+        <a href="index.html" class="mono">⬅️ INICIO</a>
+      </div>
     </div>
-    <div class="column">
-      <img src="demo1.gif">
+    <div>
+      <h2 class="mono">📝 Carteles</h2>
+      <h4 class="mono italic">
+        Filtros obtenidos por proceso Google Cloud Vision
+      </h4>
     </div>
-  </div>
-  <div class="row">
-    <div class="btn-column">
-      <a href="index-table.html" class="butt">🗂  Tabla de datos</a>
-    </div>
-    <div class="btn-column">
-      <a href="index-sig.html" class="butt">📝   Carteles</a>
-    </div>
-    <div class="btn-column">
-      <a href="index-art.html" class="butt">🖼   Arte Callejero </a>
-    </div>
-  </div>
-  <div>
-    <p class="negrita italic">*Video animado de todos los carteles que contienen la palabra "Apruebo":</p>
-    <iframe src="https://player.vimeo.com/video/412431419?title=0&byline=0&portrait=0" width="640" height="640" frameborder="0" allow="autoplay; fullscreen" allowfullscreen></iframe>
-  </div>
 
+    <div class="controls -hidden">
+      <div class="filters filters--labels">
+        <span class="mono">ETIQUETAS </span>
+        <select></select>
+      </div>
+      <div class="filters filters--objects">
+        <span class="mono">OBJETOS </span>
+        <select></select>
+      </div>
+      <div class="filters filters--words">
+        <span class="mono">TEXTO </span>
+        <input type="text" />
+      </div>
+    </div>
 
+    <div class="grid"></div>
+    <div class="loading">
+      <p class="mono">0 of XXXX images loaded</p>
+    </div>
+
+    <script src="./src/index.js" charset="utf-8"></script>
   </body>
 </html>

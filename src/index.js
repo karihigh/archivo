@@ -1,5 +1,10 @@
+import "./style.css";
+import data from "../json/combinedData.json";
+import Isotope from "isotope-layout";
+
+console.log(data);
 // change range to load
-data.responses = data.responses.slice(0, 10);
+data = data.slice(0, 10);
 //data.responses = data.responses.slice(0,1500);
 
 let $grid = document.querySelector(".grid");
@@ -25,7 +30,7 @@ let loadImg = (url, wrapper, i) => {
     let img = new Image();
     img.addEventListener("load", (e) => {
       $loading.textContent = `${++COUNT} of ${
-        data.responses.length
+        data.length
       } images loaded`;
       resolve({ img: img, wrapper: wrapper });
     });
@@ -46,7 +51,7 @@ let loadDom = () => {
   let imagePromises = [];
 
   // ~~~~~~~~~~~~ GET DATA ~~~~~~~~~~~~
-  data.responses.forEach((d, i) => {
+  data.forEach((d, i) => {
     let wrapper = document.createElement("div");
     let localLables = [];
     let localObjects = [];
