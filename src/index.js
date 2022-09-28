@@ -1,10 +1,18 @@
 import "./style.css";
 import data from "../json/combinedData.json";
 import Isotope from "isotope-layout";
+import LazyLoad from "vanilla-lazyload";
 
 console.log(data);
+let cartelesLazyLoad = new LazyLoad();
+
+window.lazyFunctions = {
+  rearrange: function(element) {
+   iso.arrange();
+  }
+};
 // change range to load
-data = data.slice(0, 10);
+//data = data.slice(0, 100);
 //data.responses = data.responses.slice(0,1500);
 
 let $grid = document.querySelector(".grid");
@@ -44,6 +52,16 @@ let loadImg = (url, wrapper, i) => {
   });
 };
 
+let loadImgEl = (url, wrapper, i) => {
+  return new Promise((resolve, reject) => {
+    let img = new Image();
+    img.setAttribute('class', 'lazy');
+    img.setAttribute('data-src', url);
+    img.setAttribute('data-lazy-function', 'rearrange');
+    resolve({img: img, wrapper: wrapper});
+  });
+}
+
 let loadDom = () => {
   let labels = new Set();
   let objects = new Set();
@@ -76,7 +94,7 @@ let loadDom = () => {
     wrapper.setAttribute("data-words", Array.from(localWords).join(" "));
 
     let url = d.url;
-    let imgp = loadImg(url, wrapper, i);
+    let imgp = loadImgEl(url, wrapper, i);
     imagePromises.push(imgp);
   });
 
@@ -159,7 +177,10 @@ let loadDom = () => {
       .querySelectorAll(".-hidden")
       .forEach((x) => x.classList.remove("-hidden"));
     $overlay.classList.add("-hidden");
+    cartelesLazyLoad.update();
+    iso.arrange();
   });
 };
 
 loadDom();
+
