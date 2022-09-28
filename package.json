@@ -1,0 +1,23 @@
+{
+  "name": "archivo_carteles_c80",
+  "version": "1.0.0",
+  "description": "Archivo de carteles pasados por cloud vision",
+  "main": "index.html",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "http-server start"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/karihigh/archivo.git"
+  },
+  "author": "Karina Highland - A Pie",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/karihigh/archivo/issues"
+  },
+  "homepage": "https://github.com/karihigh/archivo#readme"
+}
