@@ -1,18 +1,21 @@
 import "./style.css";
 import data from "../json/combinedData.json";
 import Isotope from "isotope-layout";
+import InfiniteScroll from "infinite-scroll";
 import LazyLoad from "vanilla-lazyload";
 
 console.log(data);
 let cartelesLazyLoad = new LazyLoad();
 
 window.lazyFunctions = {
-  rearrange: function(element) {
-   iso.arrange();
-  }
+  rearrange: function (element) {
+    iso.arrange();
+  },
 };
+
 // change range to load
-//data = data.slice(0, 100);
+let range = 100;
+data = data.slice(0, range);
 //data.responses = data.responses.slice(0,1500);
 
 let $grid = document.querySelector(".grid");
@@ -37,9 +40,7 @@ let loadImg = (url, wrapper, i) => {
   return new Promise((resolve, reject) => {
     let img = new Image();
     img.addEventListener("load", (e) => {
-      $loading.textContent = `${++COUNT} of ${
-        data.length
-      } images loaded`;
+      $loading.textContent = `${++COUNT} of ${data.length} images loaded`;
       resolve({ img: img, wrapper: wrapper });
     });
     img.addEventListener("error", (e) => {
@@ -55,12 +56,12 @@ let loadImg = (url, wrapper, i) => {
 let loadImgEl = (url, wrapper, i) => {
   return new Promise((resolve, reject) => {
     let img = new Image();
-    img.setAttribute('class', 'lazy');
-    img.setAttribute('data-src', url);
-    img.setAttribute('data-lazy-function', 'rearrange');
-    resolve({img: img, wrapper: wrapper});
+    img.setAttribute("class", "lazy");
+    img.setAttribute("data-src", url);
+    img.setAttribute("data-lazy-function", "rearrange");
+    resolve({ img: img, wrapper: wrapper });
   });
-}
+};
 
 let loadDom = () => {
   let labels = new Set();
@@ -183,4 +184,3 @@ let loadDom = () => {
 };
 
 loadDom();
-
