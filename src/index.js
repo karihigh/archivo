@@ -4,7 +4,7 @@ import Isotope from "isotope-layout";
 import InfiniteScroll from "infinite-scroll";
 import LazyLoad from "vanilla-lazyload";
 
-console.log(data);
+//console.log(data);
 let cartelesLazyLoad = new LazyLoad();
 
 window.lazyFunctions = {
@@ -13,10 +13,14 @@ window.lazyFunctions = {
   },
 };
 
-// change range to load
-let range = 100;
-data = data.slice(0, range);
-//data.responses = data.responses.slice(0,1500);
+let dataLabels = new Set();
+let dataObjects = new Set();
+let dataWords = new Array();
+
+let perpage = 10;
+let pagenumber = 0;
+
+let loadLock = false;
 
 let $grid = document.querySelector(".grid");
 let $overlay = document.querySelector(".loading");
@@ -36,22 +40,22 @@ let escapeString = (str) => {
   return str.trim().replace(/ /gi, "-").replace(/&/gi, "+").toLowerCase();
 };
 
-let loadImg = (url, wrapper, i) => {
-  return new Promise((resolve, reject) => {
-    let img = new Image();
-    img.addEventListener("load", (e) => {
-      $loading.textContent = `${++COUNT} of ${data.length} images loaded`;
-      resolve({ img: img, wrapper: wrapper });
-    });
-    img.addEventListener("error", (e) => {
-      brokenUrls.push(url);
-      reject(new Error(`Failed to load image's URL: ${url}`));
-    });
-    setTimeout(() => {
-      img.src = url;
-    }, i * 10);
-  });
-};
+// let loadImg = (url, wrapper, i) => {
+//   return new Promise((resolve, reject) => {
+//     let img = new Image();
+//     img.addEventListener("load", (e) => {
+//       $loading.textContent = `${++COUNT} of ${data.length} images loaded`;
+//       resolve({ img: img, wrapper: wrapper });
+//     });
+//     img.addEventListener("error", (e) => {
+//       brokenUrls.push(url);
+//       reject(new Error(`Failed to load image's URL: ${url}`));
+//     });
+//     setTimeout(() => {
+//       img.src = url;
+//     }, i * 10);
+//   });
+// };
 
 let loadImgEl = (url, wrapper, i) => {
   return new Promise((resolve, reject) => {
@@ -63,23 +67,47 @@ let loadImgEl = (url, wrapper, i) => {
   });
 };
 
-let loadDom = () => {
+const initData = () => {
+  //Iterate first all for the lists
+  data.forEach((d, i) => {
+    d.labels.forEach((a) => {
+      dataLabels.add(a);
+    });
+    d.objects.forEach((a) => {
+      dataObjects.add(a);
+    });
+    d.words.split(/[\n\r\s]/).forEach((a) => {
+      dataWords.push(a);
+    });
+  });
+  //console.log(dataLabels, dataObjects, dataWords);
+};
+
+const loadDom = (rangeStart, rangeEnd) => {
   let labels = new Set();
   let objects = new Set();
   let words = new Set();
   let imagePromises = [];
 
-  // ~~~~~~~~~~~~ GET DATA ~~~~~~~~~~~~
-  data.forEach((d, i) => {
+  // change range to load
+  // let rangeStart = 0;
+  // let rangeEnd = 100;
+
+  //current data range
+  let dataRange = data.slice(rangeStart, rangeEnd);
+  //data.responses = data.responses.slice(0,1500);
+
+  // ~~~~~~~~~~~~ GET DATA in Range ~~~~~~~~~~~~
+  dataRange.forEach((d, i) => {
     let wrapper = document.createElement("div");
-    let localLables = [];
+    let localLabels = [];
     let localObjects = [];
     let localWords = [];
     wrapper.classList.add("item");
 
     d.labels.forEach((a) => {
       labels.add(a);
-      localLables.push(a);
+      localLabels.push(a);
     });
     d.objects.forEach((a) => {
       objects.add(a);
@@ -90,7 +118,7 @@ let loadDom = () => {
       localWords.push(a);
     });
 
-    wrapper.setAttribute("data-labels", Array.from(localLables).join(" "));
+    wrapper.setAttribute("data-labels", Array.from(localLabels).join(" "));
     wrapper.setAttribute("data-objects", Array.from(localObjects).join(" "));
     wrapper.setAttribute("data-words", Array.from(localWords).join(" "));
 
@@ -134,53 +162,80 @@ let loadDom = () => {
       $grid.appendChild(r.value.wrapper);
     });
 
-    let iso = new Isotope(".grid", {
-      itemSelector: ".item",
-      layoutMode: "masonry",
-    });
+    // let iso = new Isotope(".grid", {
+    //   itemSelector: ".item",
+    //   layoutMode: "masonry",
+    // });
 
-    $labelFilters.addEventListener("change", function (e) {
-      $objectFilters.options[0].selected = true;
-      iso.arrange({
-        filter: function (item) {
-          return (
-            $labelFilters.value === "*" ||
-            item.dataset.labels.includes($labelFilters.value)
-          );
-        },
-      });
-    });
+    // $labelFilters.addEventListener("change", function (e) {
+    //   $objectFilters.options[0].selected = true;
+    //   iso.arrange({
+    //     filter: function (item) {
+    //       return (
+    //         $labelFilters.value === "*" ||
+    //         item.dataset.dataLabels.includes($labelFilters.value)
+    //       );
+    //     },
+    //   });
+    // });
 
-    $objectFilters.addEventListener("change", function (e) {
-      $labelFilters.options[0].selected = true;
-      iso.arrange({
-        filter: function (item) {
-          return (
-            $objectFilters.value === "*" ||
-            item.dataset.objects.includes($objectFilters.value)
-          );
-        },
-      });
-    });
+    // $objectFilters.addEventListener("change", function (e) {
+    //   $labelFilters.options[0].selected = true;
+    //   iso.arrange({
+    //     filter: function (item) {
+    //       return (
+    //         $objectFilters.value === "*" ||
+    //         item.dataset.dataObjects.includes($objectFilters.value)
+    //       );
+    //     },
+    //   });
+    // });
 
-    $wordFilters.addEventListener("input", function (e) {
-      $labelFilters.options[0].selected = true;
-      $objectFilters.options[0].selected = true;
-      iso.arrange({
-        filter: function (item) {
-          let r = new RegExp($wordFilters.value, "gi");
-          return r.test(item.dataset.words);
-        },
-      });
-    });
+    // $wordFilters.addEventListener("input", function (e) {
+    //   $labelFilters.options[0].selected = true;
+    //   $objectFilters.options[0].selected = true;
+    //   iso.arrange({
+    //     filter: function (item) {
+    //       let r = new RegExp($wordFilters.value, "gi");
+    //       return r.test(item.dataset.words);
+    //     },
+    //   });
+    // });
 
     document
       .querySelectorAll(".-hidden")
       .forEach((x) => x.classList.remove("-hidden"));
-    $overlay.classList.add("-hidden");
+    //$overlay.classList.add("-hidden");
     cartelesLazyLoad.update();
-    iso.arrange();
+    // iso.arrange({
+    //   filter: "*",
+    // });
+
+    loadLock = false;
   });
 };
 
-loadDom();
+//Scroll event listener
+let tmpGrid = document.querySelector("body .grid");
+
+document.addEventListener(
+  "scroll",
+  (event) => {
+    // handle scroll event
+    let y = window.scrollY + 580;
+    let loadHeight = document.body.scrollHeight - 20;
+    //console.log(y, loadHeight);
+    if (loadLock == false && y >= loadHeight) {
+      pagenumber++;
+      loadLock = true;
+      console.log("nextpage");
+      console.log(pagenumber * perpage, pagenumber * perpage + perpage);
+      loadDom(pagenumber * perpage, pagenumber * perpage + perpage);
+    }
+  },
+  { passive: true }
+);
+
+initData();
+
+loadDom(0, perpage);

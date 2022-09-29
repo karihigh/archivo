@@ -129,7 +129,11 @@ a {
   text-decoration: none;
 }
 
-
 img:not([src]):not([srcset]) {
   visibility: hidden;
+}
+
+#container-carteles {
+  display: flex;
+  flex-wrap: wrap;
 }
