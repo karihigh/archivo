@@ -4,18 +4,24 @@ import Isotope from "isotope-layout";
 import InfiniteScroll from "infinite-scroll";
 import LazyLoad from "vanilla-lazyload";
 
+import labelsTable from "../json/labelsTable";
+import labelsTableES from "../json/labelsTranslationTable";
+import objectsTable from "../json/objectsTable";
+import objectsTableES from "../json/objectsTranslationTable";
+
 //console.log(data);
 let cartelesLazyLoad = new LazyLoad();
 
 window.lazyFunctions = {
   rearrange: function (element) {
-    iso.arrange();
+    //iso.arrange();
   },
 };
 
 let dataLabels = new Set();
 let dataObjects = new Set();
 let dataWords = new Array();
+let currentData;
 
 let perpage = 10;
 let pagenumber = 0;
@@ -60,7 +66,7 @@ let escapeString = (str) => {
 let loadImgEl = (url, wrapper, i) => {
   return new Promise((resolve, reject) => {
     let img = new Image();
-    img.setAttribute("class", "lazy");
+    img.setAttribute("class", "lazy img-cartel");
     img.setAttribute("data-src", url);
     img.setAttribute("data-lazy-function", "rearrange");
     resolve({ img: img, wrapper: wrapper });
@@ -127,31 +133,31 @@ const loadDom = (rangeStart, rangeEnd) => {
     imagePromises.push(imgp);
   });
 
-  // ~~~~~~~~~~~~ LOAD LABEL DROPDOWN ~~~~~~~~~~~~
-  let op = document.createElement("option");
-  op.value = "*";
-  op.textContent = "All";
-  $labelFilters.appendChild(op);
+  // // ~~~~~~~~~~~~ LOAD LABEL DROPDOWN ~~~~~~~~~~~~
+  // let op = document.createElement("option");
+  // op.value = "*";
+  // op.textContent = "All";
+  // $labelFilters.appendChild(op);
 
-  labels.forEach((f) => {
-    let op = document.createElement("option");
-    op.value = `${f}`;
-    op.textContent = f;
-    $labelFilters.appendChild(op);
-  });
+  // labels.forEach((f) => {
+  //   let op = document.createElement("option");
+  //   op.value = `${f}`;
+  //   op.textContent = f;
+  //   $labelFilters.appendChild(op);
+  // });
 
-  // ~~~~~~~~~~~~ LOAD OBJECT DROPDOWN ~~~~~~~~~~~~
-  op = document.createElement("option");
-  op.value = "*";
-  op.textContent = "All";
-  $objectFilters.appendChild(op);
+  // // ~~~~~~~~~~~~ LOAD OBJECT DROPDOWN ~~~~~~~~~~~~
+  // op = document.createElement("option");
+  // op.value = "*";
+  // op.textContent = "All";
+  // $objectFilters.appendChild(op);
 
-  objects.forEach((f) => {
-    let op = document.createElement("option");
-    op.value = `${f}`;
-    op.textContent = f;
-    $objectFilters.appendChild(op);
-  });
+  // objects.forEach((f) => {
+  //   let op = document.createElement("option");
+  //   op.value = `${f}`;
+  //   op.textContent = f;
+  //   $objectFilters.appendChild(op);
+  // });
 
   // ~~~~~~~~~~~~ LOAD ALL IMAGES AND INIT ISO ~~~~~~~~~~~~
   Promise.allSettled(imagePromises).then((results) => {
@@ -237,5 +243,22 @@ document.addEventListener(
 );
 
 initData();
+console.log(Array.from(dataLabels), Array.from(dataObjects));
+
+document.addEventListener("click", function (e) {
+  //console.log(e.target.parentNode);
+  let parent = e.target.parentNode;
+
+  if (e.target && parent.className == "item") {
+    //console.log("clickity");
+    currentData = {
+      labels: parent.getAttribute("data-labels"),
+      objects: parent.getAttribute("data-objects"),
+      words: parent.getAttribute("data-words"),
+    };
+
+    console.log(JSON.stringify(currentData));
+  }
+});
 
 loadDom(0, perpage);

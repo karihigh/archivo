@@ -37,13 +37,11 @@ h4 {
 }
 
 .item {
-  margin: 0.25%;
-  position: relative;
   width: 19.5%;
 }
 
 .item img {
-  width: 100%;
+  max-width: 100%;
   height: auto;
   /* //max-width: 200px; */
 }
