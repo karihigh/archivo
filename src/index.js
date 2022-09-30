@@ -8,6 +8,10 @@ import labelsTable from "../json/labelsTable";
 import labelsTableES from "../json/labelsTranslationTable";
 import objectsTable from "../json/objectsTable";
 import objectsTableES from "../json/objectsTranslationTable";
+import translatedStringFromArray from "./translatedStringFromArray";
+
+//React components
+import RenderCartelModal from "./components/CartelModal";
 
 //console.log(data);
 let cartelesLazyLoad = new LazyLoad();
@@ -21,49 +25,33 @@ window.lazyFunctions = {
 let dataLabels = new Set();
 let dataObjects = new Set();
 let dataWords = new Array();
-let currentData;
+window.currentData;
 
 let perpage = 10;
 let pagenumber = 0;
 
 let loadLock = false;
 
-let $grid = document.querySelector(".grid");
-let $overlay = document.querySelector(".loading");
-let $loading = document.querySelector(".loading p");
-let $labelFilters = document.querySelector(".filters--labels select");
-let $objectFilters = document.querySelector(".filters--objects select");
-let $wordFilters = document.querySelector(".filters--words input");
+const $grid = document.querySelector(".grid");
+const $modal = document.querySelector("#react-modal-data");
+const $overlay = document.querySelector(".loading");
+const $loading = document.querySelector(".loading p");
+const $labelFilters = document.querySelector(".filters--labels select");
+const $objectFilters = document.querySelector(".filters--objects select");
+const $wordFilters = document.querySelector(".filters--words input");
 let COUNT = 0;
 
 let brokenUrls = [];
 
-let unescapeString = (str) => {
+const unescapeString = (str) => {
   return str.replace(/-/gi, " ").replace(/\+/gi, "&");
 };
 
-let escapeString = (str) => {
+const escapeString = (str) => {
   return str.trim().replace(/ /gi, "-").replace(/&/gi, "+").toLowerCase();
 };
 
-// let loadImg = (url, wrapper, i) => {
-//   return new Promise((resolve, reject) => {
-//     let img = new Image();
-//     img.addEventListener("load", (e) => {
-//       $loading.textContent = `${++COUNT} of ${data.length} images loaded`;
-//       resolve({ img: img, wrapper: wrapper });
-//     });
-//     img.addEventListener("error", (e) => {
-//       brokenUrls.push(url);
-//       reject(new Error(`Failed to load image's URL: ${url}`));
-//     });
-//     setTimeout(() => {
-//       img.src = url;
-//     }, i * 10);
-//   });
-// };
-
-let loadImgEl = (url, wrapper, i) => {
+const loadImgEl = (url, wrapper, i) => {
   return new Promise((resolve, reject) => {
     let img = new Image();
     img.setAttribute("class", "lazy img-cartel");
@@ -124,9 +112,9 @@ const loadDom = (rangeStart, rangeEnd) => {
       localWords.push(a);
     });
 
-    wrapper.setAttribute("data-labels", Array.from(localLabels).join(" "));
-    wrapper.setAttribute("data-objects", Array.from(localObjects).join(" "));
-    wrapper.setAttribute("data-words", Array.from(localWords).join(" "));
+    wrapper.setAttribute("data-labels", Array.from(localLabels).join(", "));
+    wrapper.setAttribute("data-objects", Array.from(localObjects).join(", "));
+    wrapper.setAttribute("data-words", Array.from(localWords).join(", "));
 
     let url = d.url;
     let imgp = loadImgEl(url, wrapper, i);
@@ -168,54 +156,7 @@ const loadDom = (rangeStart, rangeEnd) => {
       $grid.appendChild(r.value.wrapper);
     });
 
-    // let iso = new Isotope(".grid", {
-    //   itemSelector: ".item",
-    //   layoutMode: "masonry",
-    // });
-
-    // $labelFilters.addEventListener("change", function (e) {
-    //   $objectFilters.options[0].selected = true;
-    //   iso.arrange({
-    //     filter: function (item) {
-    //       return (
-    //         $labelFilters.value === "*" ||
-    //         item.dataset.dataLabels.includes($labelFilters.value)
-    //       );
-    //     },
-    //   });
-    // });
-
-    // $objectFilters.addEventListener("change", function (e) {
-    //   $labelFilters.options[0].selected = true;
-    //   iso.arrange({
-    //     filter: function (item) {
-    //       return (
-    //         $objectFilters.value === "*" ||
-    //         item.dataset.dataObjects.includes($objectFilters.value)
-    //       );
-    //     },
-    //   });
-    // });
-
-    // $wordFilters.addEventListener("input", function (e) {
-    //   $labelFilters.options[0].selected = true;
-    //   $objectFilters.options[0].selected = true;
-    //   iso.arrange({
-    //     filter: function (item) {
-    //       let r = new RegExp($wordFilters.value, "gi");
-    //       return r.test(item.dataset.words);
-    //     },
-    //   });
-    // });
-
-    document
-      .querySelectorAll(".-hidden")
-      .forEach((x) => x.classList.remove("-hidden"));
-    //$overlay.classList.add("-hidden");
     cartelesLazyLoad.update();
-    // iso.arrange({
-    //   filter: "*",
-    // });
 
     loadLock = false;
   });
@@ -243,7 +184,7 @@ document.addEventListener(
 );
 
 initData();
-console.log(Array.from(dataLabels), Array.from(dataObjects));
+//console.log(Array.from(dataLabels), Array.from(dataObjects));
 
 document.addEventListener("click", function (e) {
   //console.log(e.target.parentNode);
@@ -251,13 +192,34 @@ document.addEventListener("click", function (e) {
 
   if (e.target && parent.className == "item") {
     //console.log("clickity");
-    currentData = {
-      labels: parent.getAttribute("data-labels"),
-      objects: parent.getAttribute("data-objects"),
-      words: parent.getAttribute("data-words"),
+    let currentLabels = parent.getAttribute("data-labels").split(", ");
+    let currentLabels_es = currentLabels.map((label) => {
+      return translatedStringFromArray(label, labelsTable, labelsTableES);
+    });
+
+    let currentObjects = parent.getAttribute("data-objects").split(", ");
+    let currentObjects_es = currentObjects.map((object) => {
+      return translatedStringFromArray(object, objectsTable, objectsTableES);
+    });
+
+    console.log(currentLabels_es, currentObjects_es);
+
+    window.currentData = {
+      image: e.target.getAttribute("src"),
+      labels: currentLabels_es,
+      objects: currentObjects_es,
+      words: parent.getAttribute("data-words").split(", "),
     };
 
+    RenderCartelModal(window.currentData);
+    $modal.classList.remove("-hidden");
     console.log(JSON.stringify(currentData));
+  }
+
+  if (e.target && e.target.className == "closeModal") {
+    window.currentData = {};
+    RenderCartelModal(window.currentData);
+    console.log("close");
   }
 });
 
