@@ -25,20 +25,26 @@ window.lazyFunctions = {
 let dataLabels = new Set();
 let dataObjects = new Set();
 let dataWords = new Array();
-window.currentData;
+let filteredData = new Array();
 
-let perpage = 10;
+let perpage = 20;
 let pagenumber = 0;
 
 let loadLock = false;
 
 const $grid = document.querySelector(".grid");
+const $header = document.getElementById("site-header");
+const headerHeight = $header.offsetHeight;
+//console.log($header.offsetHeight);
 const $modal = document.querySelector("#react-modal-data");
 const $overlay = document.querySelector(".loading");
 const $loading = document.querySelector(".loading p");
-const $labelFilters = document.querySelector(".filters--labels select");
-const $objectFilters = document.querySelector(".filters--objects select");
-const $wordFilters = document.querySelector(".filters--words input");
+// const $labelFilters = document.querySelector(".filters--labels select");
+// const $objectFilters = document.querySelector(".filters--objects select");
+// const $wordFilters = document.querySelector(".filters--words input");
+const $etiquetasPlace = document.getElementById("etiquetas");
+const $objectsPlace = document.getElementById("objetos");
+
 let COUNT = 0;
 
 let brokenUrls = [];
@@ -75,9 +81,43 @@ const initData = () => {
     });
   });
   //console.log(dataLabels, dataObjects, dataWords);
+  initFilters();
 };
 
-const loadDom = (rangeStart, rangeEnd) => {
+const initFilters = () => {
+  Array.from(labelsTable).map((label, idx) => {
+    let translated = translatedStringFromArray(
+      label,
+      labelsTable,
+      labelsTableES
+    );
+    $etiquetasPlace.innerHTML += `<span class="filter-label" data-label="${label}">${translated}</span>`;
+  });
+
+  Array.from(objectsTable).map((object, idx) => {
+    let translated = translatedStringFromArray(
+      object,
+      objectsTable,
+      objectsTableES
+    );
+    $objectsPlace.innerHTML += `<span class="filter-object" data-object="${object}">${translated}</span>`;
+  });
+};
+
+const filterSign = (filterItem, filter) => {
+  filteredData = [];
+  //console.log(label);
+  data.map((item, idx) => {
+    if (item[filter].indexOf(filterItem) != -1) {
+      //console.log(label);
+      filteredData.push(item);
+    }
+  });
+  $grid.innerHTML = "";
+  loadDom(filteredData);
+};
+
+const loadDom = (data) => {
   let labels = new Set();
   let objects = new Set();
   let words = new Set();
@@ -88,11 +128,11 @@ const loadDom = (rangeStart, rangeEnd) => {
   // let rangeEnd = 100;
 
   //current data range
-  let dataRange = data.slice(rangeStart, rangeEnd);
+  //let dataRange = data;
   //data.responses = data.responses.slice(0,1500);
 
   // ~~~~~~~~~~~~ GET DATA in Range ~~~~~~~~~~~~
-  dataRange.forEach((d, i) => {
+  data.forEach((d, i) => {
     let wrapper = document.createElement("div");
     let localLabels = [];
     let localObjects = [];
@@ -121,32 +161,6 @@ const loadDom = (rangeStart, rangeEnd) => {
     imagePromises.push(imgp);
   });
 
-  // // ~~~~~~~~~~~~ LOAD LABEL DROPDOWN ~~~~~~~~~~~~
-  // let op = document.createElement("option");
-  // op.value = "*";
-  // op.textContent = "All";
-  // $labelFilters.appendChild(op);
-
-  // labels.forEach((f) => {
-  //   let op = document.createElement("option");
-  //   op.value = `${f}`;
-  //   op.textContent = f;
-  //   $labelFilters.appendChild(op);
-  // });
-
-  // // ~~~~~~~~~~~~ LOAD OBJECT DROPDOWN ~~~~~~~~~~~~
-  // op = document.createElement("option");
-  // op.value = "*";
-  // op.textContent = "All";
-  // $objectFilters.appendChild(op);
-
-  // objects.forEach((f) => {
-  //   let op = document.createElement("option");
-  //   op.value = `${f}`;
-  //   op.textContent = f;
-  //   $objectFilters.appendChild(op);
-  // });
-
   // ~~~~~~~~~~~~ LOAD ALL IMAGES AND INIT ISO ~~~~~~~~~~~~
   Promise.allSettled(imagePromises).then((results) => {
     let res = results.filter((r) => r.status === "fulfilled");
@@ -169,22 +183,32 @@ document.addEventListener(
   "scroll",
   (event) => {
     // handle scroll event
-    let y = window.scrollY + 580;
-    let loadHeight = document.body.scrollHeight - 20;
+    let y = window.scrollY + 780;
+    let loadHeight = document.body.scrollHeight;
     //console.log(y, loadHeight);
+
+    //console.log(loadLock == false, y, loadHeight);
+
     if (loadLock == false && y >= loadHeight) {
       pagenumber++;
       loadLock = true;
       console.log("nextpage");
       console.log(pagenumber * perpage, pagenumber * perpage + perpage);
-      loadDom(pagenumber * perpage, pagenumber * perpage + perpage);
+
+      if (filteredData.length > 0) {
+        loadDom(
+          filteredData.slice(
+            pagenumber * perpage,
+            pagenumber * perpage + perpage
+          )
+        );
+      }
     }
   },
   { passive: true }
 );
 
 initData();
-//console.log(Array.from(dataLabels), Array.from(dataObjects));
 
 document.addEventListener("click", function (e) {
   //console.log(e.target.parentNode);
@@ -213,14 +237,28 @@ document.addEventListener("click", function (e) {
 
     RenderCartelModal(window.currentData);
     $modal.classList.remove("-hidden");
-    console.log(JSON.stringify(currentData));
+    //console.log(JSON.stringify(currentData));
   }
 
-  if (e.target && e.target.className == "closeModal") {
+  if (e.target && e.target.id == "closeModal") {
     window.currentData = {};
     RenderCartelModal(window.currentData);
     console.log("close");
   }
+
+  if (e.target && e.target.className == "filter-label") {
+    let filterData = e.target.getAttribute("data-label");
+    //console.log(filterData);
+    filterSign(filterData, "labels");
+    console.log(filteredData);
+  }
+
+  if (e.target && e.target.className == "filter-object") {
+    let filterData = e.target.getAttribute("data-object");
+    //console.log(filterData);
+    filterSign(filterData, "objects");
+    console.log(filteredData);
+  }
 });
 
-loadDom(0, perpage);
+loadDom(data.slice(0, perpage));
