@@ -10,6 +10,7 @@ import objectsTable from "../json/objectsTable";
 import objectsTableES from "../json/objectsTranslationTable";
 import translatedStringFromArray from "./translatedStringFromArray";
 import logo from "./img/c80_logo_blanco.svg";
+import html from "./index.html";
 
 //React components
 import RenderCartelModal from "./components/CartelModal";

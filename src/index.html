@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8" />
+    <title>Archivo calle Carteles</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,400;0,700;1,400&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <div id="site-header">
+      <div class="description-header">
+        <div>
+          <h1>ARCHIVO CALLE</h1>
+          <h2>¿Qué decían los muros en la revuelta social del 2019?</h2>
+          <p>
+            Visualización archivística con textos, etiquetas y objetos
+            procesados por un algoritmo de visión por computador, extraídos
+            desde 4000 fotos subidas a Instagram durante la revuelta social de
+            octubre 2019.
+          </p>
+        </div>
+        <!--  <div class="column column-left">
+        <a href="index.html" class="mono">⬅️ INICIO</a>
+      </div> -->
+      </div>
+      <div class="filterzone">
+        <div id="etiquetas">
+          <!--Etiquetas placement-->
+          <h2>Etiquetas</h2>
+          <select name="etiquetas-select" id="etiquetas-select">
+            <option value="none">Escoge una etiqueta</option>
+          </select>
+        </div>
+
+        <div id="objetos">
+          <!--Objetos placement-->
+          <h2>Objetos</h2>
+          <select name="objetos-select" id="objetos-select">
+            <option value="none">Escoge un objeto</option>
+          </select>
+        </div>
+
+        <div id="palabras">
+          <h2>Palabras</h2>
+          <form id="search-words-form">
+            <input
+              type="text"
+              placeholder="Buscar palabras ..."
+              name="search-words"
+              id="search-words"
+            />
+            <input type="submit" value="Buscar..." />
+          </form>
+        </div>
+      </div>
+
+      <div id="resultados-titulo"><!-- Contenedor título resultados --></div>
+    </div>
+
+    <!-- <div class="controls -hidden">
+      <div class="filters filters--labels">
+        <span class="mono">ETIQUETAS </span>
+        <select></select>
+      </div>
+      <div class="filters filters--objects">
+        <span class="mono">OBJETOS </span>
+        <select></select>
+      </div>
+      <div class="filters filters--words">
+        <span class="mono">TEXTO </span>
+        <input type="text" />
+      </div>
+    </div> -->
+    <div class="wrapper-carteles">
+      <div id="container-carteles" class="grid"></div>
+    </div>
+    <!--  <div class="loading">
+      <p class="mono">0 of XXXX images loaded</p>
+    </div> -->
+
+    <div id="react-modal-data" class="modal-info-single-cartel -hidden">
+      <!--Data para cada cartel aquí -->
+    </div>
+  </body>
+</html>

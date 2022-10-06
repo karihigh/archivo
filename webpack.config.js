@@ -1,11 +1,20 @@
 const path = require("path");
+const HtmlWebpackPlugin = require("html-webpack-plugin");
 
 module.exports = {
 	entry: "./src/index.js",
+	plugins: [
+		new HtmlWebpackPlugin({
+			title: "Archivo Carteles",
+			template: "src/index.html",
+		}),
+	],
 	mode: "development",
 	output: {
-		filename: "main.js",
+		filename: "[name][contenthash].js",
 		path: path.resolve(__dirname, "dist"),
+		assetModuleFilename: "[name][ext]",
+		clean: true,
 	},
 	devServer: {
 		static: "./dist",
@@ -13,6 +22,10 @@ module.exports = {
 	devtool: "inline-source-map",
 	module: {
 		rules: [
+			{
+				test: /\.html$/i,
+				use: ["html-loader"],
+			},
 			{
 				test: /\.css$/i,
 				use: ["style-loader", "css-loader"],
