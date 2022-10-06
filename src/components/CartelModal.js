@@ -9,6 +9,7 @@ const StyledModal = styled.div`
 	display: flex;
 	flex-wrap: wrap;
 	top: 24px;
+	left: 24px;
 	padding: 24px;
 	background-color: white;
 	width: 90%;

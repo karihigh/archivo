@@ -137,4 +137,29 @@ img:not([src]):not([srcset]) {
 #container-carteles {
   display: flex;
   flex-wrap: wrap;
+  padding: 12px 24px;
+}
+
+#palabras input {
+  padding: 12px;
+  margin: 12px 0;
+  font-size: 24px;
+}
+
+.wrapper-carteles {
+  min-height: 100vh;
+}
+
+select {
+  padding: 12px 12px 12px 0;
+  margin: 12px 0;
+}
+
+.filterzone {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.filterzone div {
+  padding: 12px;
 }

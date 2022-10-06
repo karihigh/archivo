@@ -16,16 +16,38 @@
       <h4 class="mono italic">
         Filtros obtenidos por proceso Google Cloud Vision
       </h4>
+      <div class="filterzone">
+        <div id="etiquetas">
+          <!--Etiquetas placement-->
+          <h2>Etiquetas</h2>
+          <select name="etiquetas-select" id="etiquetas-select">
+            <option value="none">Escoge una etiqueta</option>
+          </select>
+        </div>
 
-      <h2>Etiquetas</h2>
-      <div id="etiquetas">
-        <!--Etiquetas placement-->
+        <div id="objetos">
+          <!--Objetos placement-->
+          <h2>Objetos</h2>
+          <select name="objetos-select" id="objetos-select">
+            <option value="none">Escoge un objeto</option>
+          </select>
+        </div>
+
+        <div id="palabras">
+          <h2>Palabras</h2>
+          <form id="search-words-form">
+            <input
+              type="text"
+              placeholder="Buscar palabras ..."
+              name="search-words"
+              id="search-words"
+            />
+            <input type="submit" value="Buscar..." />
+          </form>
+        </div>
       </div>
 
-      <h2>Objetos</h2>
-      <div id="objetos">
-        <!--Objetos placement-->
-      </div>
+      <div id="resultados-titulo"><!-- Contenedor título resultados --></div>
     </div>
 
     <!-- <div class="controls -hidden">
@@ -42,8 +64,9 @@
         <input type="text" />
       </div>
     </div> -->
-
-    <div id="container-carteles" class="grid"></div>
+    <div class="wrapper-carteles">
+      <div id="container-carteles" class="grid"></div>
+    </div>
     <!--  <div class="loading">
       <p class="mono">0 of XXXX images loaded</p>
     </div> -->

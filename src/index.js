@@ -42,8 +42,14 @@ const $loading = document.querySelector(".loading p");
 // const $labelFilters = document.querySelector(".filters--labels select");
 // const $objectFilters = document.querySelector(".filters--objects select");
 // const $wordFilters = document.querySelector(".filters--words input");
-const $etiquetasPlace = document.getElementById("etiquetas");
-const $objectsPlace = document.getElementById("objetos");
+const $etiquetasPlace = document.getElementById("etiquetas-select");
+const $objectsPlace = document.getElementById("objetos-select");
+const $titlePlace = document.getElementById("resultados-titulo");
+const $searchForm = document.getElementById("search-words-form");
+const $searchInput = document.getElementById("search-words");
+const $etiquetasSelect = document.querySelector("#etiquetas-select");
+const $objectsSelect = document.querySelector("#objetos-select");
+console.log($titlePlace);
 
 let COUNT = 0;
 
@@ -91,7 +97,8 @@ const initFilters = () => {
       labelsTable,
       labelsTableES
     );
-    $etiquetasPlace.innerHTML += `<span class="filter-label" data-label="${label}">${translated}</span>`;
+    //$etiquetasPlace.innerHTML += `<span class="filter-label" data-label="${label}">${translated}</span>`;
+    $etiquetasPlace.innerHTML += `<option value="${label}">${translated}</option>`;
   });
 
   Array.from(objectsTable).map((object, idx) => {
@@ -100,11 +107,12 @@ const initFilters = () => {
       objectsTable,
       objectsTableES
     );
-    $objectsPlace.innerHTML += `<span class="filter-object" data-object="${object}">${translated}</span>`;
+    //$objectsPlace.innerHTML += `<span class="filter-object" data-object="${object}">${translated}</span>`;
+    $objectsPlace.innerHTML += `<option value="${object}">${translated}</option>`;
   });
 };
 
-const filterSign = (filterItem, filter) => {
+const filterSign = (filterItem, filter, translatedItem) => {
   filteredData = [];
   //console.log(label);
   data.map((item, idx) => {
@@ -114,7 +122,30 @@ const filterSign = (filterItem, filter) => {
     }
   });
   $grid.innerHTML = "";
+  let filterLabel = filter == "labels" ? "Etiquetas" : "Objetos";
+
+  resultsTitle(`${filteredData.length} ${filterLabel} : ${translatedItem}`);
   loadDom(filteredData);
+};
+
+const filterWord = (word) => {
+  filteredData = [];
+  data.map((item, idx) => {
+    let wordRef = item.words.toLowerCase();
+    let searchWord = word.toLowerCase();
+    if (wordRef.match(searchWord)) {
+      filteredData.push(item);
+    }
+  });
+  $grid.innerHTML = "";
+  $objectsSelect.selectedIndex = 0;
+  $etiquetasSelect.selectedIndex = 0;
+  resultsTitle(`${filteredData.length}: ${word}`);
+  loadDom(filteredData);
+};
+
+const resultsTitle = (title) => {
+  $titlePlace.innerHTML = `<h2>${title}</h2>`;
 };
 
 const loadDom = (data) => {
@@ -177,19 +208,20 @@ const loadDom = (data) => {
 };
 
 //Scroll event listener
-let tmpGrid = document.querySelector("body .grid");
+const $wrapper = document.querySelector(".wrapper-carteles");
 
-document.addEventListener(
+window.addEventListener(
   "scroll",
   (event) => {
     // handle scroll event
     let y = window.scrollY + 780;
-    let loadHeight = document.body.scrollHeight;
-    //console.log(y, loadHeight);
+    let loadHeight = $grid.offsetHeight;
+    let loadTrigger = $wrapper.scrollTop + $wrapper.offsetHeight;
+    console.log(loadHeight, loadTrigger, loadLock);
 
     //console.log(loadLock == false, y, loadHeight);
 
-    if (loadLock == false && y >= loadHeight) {
+    if (loadLock == false && loadTrigger >= loadHeight) {
       pagenumber++;
       loadLock = true;
       console.log("nextpage");
@@ -202,6 +234,10 @@ document.addEventListener(
             pagenumber * perpage + perpage
           )
         );
+      } else {
+        loadDom(
+          data.slice(pagenumber * perpage, pagenumber * perpage + perpage)
+        );
       }
     }
   },
@@ -209,6 +245,14 @@ document.addEventListener(
 );
 
 initData();
+
+//searcher
+
+$searchForm.addEventListener("submit", function (e) {
+  e.preventDefault();
+  console.log($searchInput.value);
+  filterWord($searchInput.value);
+});
 
 document.addEventListener("click", function (e) {
   //console.log(e.target.parentNode);
@@ -259,6 +303,22 @@ document.addEventListener("click", function (e) {
     filterSign(filterData, "objects");
     console.log(filteredData);
   }
+});
+
+//Select event listeners
+
+$etiquetasSelect.addEventListener("change", function (e) {
+  let translatedItem =
+    $etiquetasSelect.options[$etiquetasSelect.selectedIndex].text;
+  filterSign(e.target.value, "labels", translatedItem);
+  $objectsSelect.selectedIndex = 0;
+});
+
+$objectsSelect.addEventListener("change", function (e) {
+  let translatedItem =
+    $objectsSelect.options[$objectsSelect.selectedIndex].text;
+  filterSign(e.target.value, "objects", translatedItem);
+  $etiquetasSelect.selectedIndex = 0;
 });
 
 loadDom(data.slice(0, perpage));
