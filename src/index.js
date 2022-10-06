@@ -9,6 +9,7 @@ import labelsTableES from "../json/labelsTranslationTable";
 import objectsTable from "../json/objectsTable";
 import objectsTableES from "../json/objectsTranslationTable";
 import translatedStringFromArray from "./translatedStringFromArray";
+import logo from "./img/c80_logo_blanco.svg";
 
 //React components
 import RenderCartelModal from "./components/CartelModal";
@@ -32,8 +33,12 @@ let pagenumber = 0;
 
 let loadLock = false;
 
+const c80Logo = new Image();
+c80Logo.src = logo;
+
 const $grid = document.querySelector(".grid");
 const $header = document.getElementById("site-header");
+const $headerPresentation = document.querySelector(".description-header");
 const headerHeight = $header.offsetHeight;
 //console.log($header.offsetHeight);
 const $modal = document.querySelector("#react-modal-data");
@@ -50,6 +55,8 @@ const $searchInput = document.getElementById("search-words");
 const $etiquetasSelect = document.querySelector("#etiquetas-select");
 const $objectsSelect = document.querySelector("#objetos-select");
 console.log($titlePlace);
+
+$headerPresentation.prepend(c80Logo);
 
 let COUNT = 0;
 
@@ -123,7 +130,7 @@ const filterSign = (filterItem, filter, translatedItem) => {
   });
   $grid.innerHTML = "";
   let filterLabel = filter == "labels" ? "Etiquetas" : "Objetos";
-
+  $searchInput.value = "";
   resultsTitle(`${filteredData.length} ${filterLabel} : ${translatedItem}`);
   loadDom(filteredData);
 };
