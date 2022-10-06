@@ -52,6 +52,21 @@ h4 {
 .item img {
   max-width: 100%;
   height: auto;
+  transition: all ease-in 0.2s;
+}
+
+.item img:hover {
+  transform: scale(1.05);
+  cursor: pointer;
+  box-shadow: 3px 4px 4px #ccc;
+}
+
+.item img[data-ll-status="error"] {
+  background-color: #f0f0f0;
+  border: 1px solid #333;
+  width: 200px;
+  height: 250px;
+  text-align: center;
 }
 
 button {

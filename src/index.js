@@ -76,7 +76,7 @@ const loadImgEl = (url, wrapper, i) => {
     let img = new Image();
     img.setAttribute("class", "lazy img-cartel");
     img.setAttribute("data-src", url);
-    img.setAttribute("data-lazy-function", "rearrange");
+    //img.setAttribute("data-lazy-function", "rearrange");
     resolve({ img: img, wrapper: wrapper });
   });
 };
