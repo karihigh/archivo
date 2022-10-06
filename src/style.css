@@ -125,3 +125,7 @@ select {
 #resultados-titulo {
   padding-left: 24px;
 }
+
+#loading {
+  display: none;
+}

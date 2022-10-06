@@ -96,6 +96,7 @@ const initData = () => {
   });
   //console.log(dataLabels, dataObjects, dataWords);
   initFilters();
+  document.body.classList.remove("loading");
 };
 
 const initFilters = () => {
