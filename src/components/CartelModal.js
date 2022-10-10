@@ -64,6 +64,10 @@ const CloseButton = styled.div`
 `;
 
 const CartelModal = (props) => {
+	if (props.data.comments) {
+		console.log(props.data.comments.split(";"));
+	}
+
 	return (
 		<>
 			{props.data.labels ? (
@@ -79,6 +83,16 @@ const CartelModal = (props) => {
 						<ModalBody>
 							<img src={props.data.image} />
 							<div className="data">
+								<DataSection>
+									<strong>Fecha:</strong> {props.data.date}
+								</DataSection>
+								<DataSection>
+									<a
+										href={`https://instagram.com/p/${props.data.shortcode}`}
+									>
+										Link
+									</a>
+								</DataSection>
 								<DataSection>
 									<strong>Palabras identificadas</strong>
 									{props.data.words.map((word, idx) => (
@@ -97,6 +111,17 @@ const CartelModal = (props) => {
 										<span key={idx}>{object}</span>
 									))}
 								</DataSection>
+
+								{props.data.comments && (
+									<DataSection>
+										<strong>Comentarios</strong>
+										{props.data.comments
+											.split(";")
+											.map((comment, idx) => (
+												<p>{comment}</p>
+											))}
+									</DataSection>
+								)}
 							</div>
 						</ModalBody>
 					</StyledModal>

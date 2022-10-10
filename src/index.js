@@ -1,5 +1,5 @@
 import "./style.css";
-import data from "../json/combinedData.json";
+import data from "../json/combinedData_inst.json";
 import Isotope from "isotope-layout";
 import InfiniteScroll from "infinite-scroll";
 import LazyLoad from "vanilla-lazyload";
@@ -191,10 +191,28 @@ const loadDom = (data) => {
       words.add(a);
       localWords.push(a);
     });
-
+    //console.log(d.date);
+    let postDate = new Date(d.date * 1000);
+    console.log(postDate);
     wrapper.setAttribute("data-labels", Array.from(localLabels).join(", "));
     wrapper.setAttribute("data-objects", Array.from(localObjects).join(", "));
     wrapper.setAttribute("data-words", Array.from(localWords).join(", "));
+    wrapper.setAttribute(
+      "data-date",
+      `${postDate.getDate()}/${
+        postDate.getMonth() + 1
+      }/${postDate.getFullYear()}`
+    );
+    wrapper.setAttribute("data-shortcode", d.shortcode);
+
+    if (d.comments.length > 0) {
+      console.log(d.comments);
+      let comments_content = [];
+      let comments_text = d.comments.map((comment) => {
+        comments_content.push(`"@${comment.owner.username} - ${comment.text}"`);
+      });
+      wrapper.setAttribute("data-comments", `${comments_content.join(";")}`);
+    }
 
     let url = d.url;
     let imgp = loadImgEl(url, wrapper, i);
@@ -286,6 +304,9 @@ document.addEventListener("click", function (e) {
       labels: currentLabels_es,
       objects: currentObjects_es,
       words: parent.getAttribute("data-words").split(", "),
+      comments: parent.getAttribute("data-comments"),
+      date: parent.getAttribute("data-date"),
+      shortcode: parent.getAttribute("data-shortcode"),
     };
 
     RenderCartelModal(window.currentData);
