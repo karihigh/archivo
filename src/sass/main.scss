@@ -1,0 +1,21 @@
+//frontend sass
+
+@import url("https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,400;0,700;1,400&display=swap");
+
+@import "custom-bootstrap";
+@import "./header.scss";
+
+.item {
+	img {
+		max-width: 100%;
+		height: auto;
+	}
+}
+
+#loading {
+	display: none;
+}
+
+body.loading #loading {
+	display: flex;
+}

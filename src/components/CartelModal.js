@@ -8,19 +8,16 @@ const StyledModal = styled.div`
 	z-index: 20;
 	display: flex;
 	flex-wrap: wrap;
-	top: 24px;
-	left: 24px;
-	padding: 24px;
-	background-color: white;
-	width: 90%;
-	margin: 15px auto;
+
 	img {
-		max-width: 300px;
+		max-width: 100%;
+		height: auto;
 	}
 `;
 
 const ModalBody = styled.div`
 	display: flex;
+	position: relative;
 	img {
 		margin-right: 12px;
 	}
@@ -34,10 +31,14 @@ const DataSection = styled.div`
 
 	span {
 		display: inline-block;
-		padding: 4px;
+		padding: 4px 4px 4px 0;
 	}
 
-	border: 1px solid #333;
+	strong {
+		display: block;
+		text-transform: uppercase;
+	}
+
 	margin: 12px;
 `;
 
@@ -73,55 +74,101 @@ const CartelModal = (props) => {
 			{props.data.labels ? (
 				<>
 					<Overlay></Overlay>
-					<StyledModal>
+					<StyledModal className="modal" tabindex="-1">
 						<Helmet>
 							<script>
 								document.body.style.overflow = "hidden";
 							</script>
 						</Helmet>
-						<CloseButton id="closeModal">Cerrar</CloseButton>
-						<ModalBody>
-							<img src={props.data.image} />
-							<div className="data">
-								<DataSection>
-									<strong>Fecha:</strong> {props.data.date}
-								</DataSection>
-								<DataSection>
-									<a
-										href={`https://instagram.com/p/${props.data.shortcode}`}
-									>
-										Link
-									</a>
-								</DataSection>
-								<DataSection>
-									<strong>Palabras identificadas</strong>
-									{props.data.words.map((word, idx) => (
-										<span key={idx}>{word}</span>
-									))}
-								</DataSection>
-								<DataSection>
-									<strong>Etiquetas:</strong>{" "}
-									{props.data.labels.map((label, idx) => (
-										<span key={idx}>{label}</span>
-									))}
-								</DataSection>
-								<DataSection>
-									<strong>Objetos</strong>
-									{props.data.objects.map((object, idx) => (
-										<span key={idx}>{object}</span>
-									))}
-								</DataSection>
 
-								{props.data.comments && (
-									<DataSection>
-										<strong>Comentarios</strong>
-										{props.data.comments
-											.split(";")
-											.map((comment, idx) => (
-												<p>{comment}</p>
-											))}
-									</DataSection>
-								)}
+						<ModalBody className="modal-dialog modal-xl modal-fullscreen-sm-down">
+							<div className="modal-content">
+								<div className="modal-body">
+									<div className="container">
+										<div className="row">
+											<div className="col-md-7">
+												<img src={props.data.image} />
+											</div>
+
+											<div className="data col-md-5">
+												<CloseButton id="closeModal">
+													Cerrar
+												</CloseButton>
+												<DataSection>
+													<strong>
+														ID{" "}
+														{props.data.shortcode}
+													</strong>
+												</DataSection>
+												<DataSection>
+													<strong>Fecha</strong>{" "}
+													{props.data.date}
+												</DataSection>
+												<DataSection>
+													<a
+														href={`https://instagram.com/p/${props.data.shortcode}`}
+													>
+														Link
+													</a>
+												</DataSection>
+												<DataSection>
+													<strong>
+														Texto detectado
+													</strong>
+													{props.data.words.map(
+														(word, idx) => (
+															<span key={idx}>
+																{word}
+															</span>
+														)
+													)}
+												</DataSection>
+												<DataSection>
+													<strong>Etiquetas</strong>{" "}
+													{props.data.labels.map(
+														(label, idx) => (
+															<span key={idx}>
+																{label}
+															</span>
+														)
+													)}
+												</DataSection>
+												<DataSection>
+													<strong>Objetos</strong>
+													{props.data.objects.map(
+														(object, idx) => (
+															<span key={idx}>
+																{object}
+															</span>
+														)
+													)}
+												</DataSection>
+
+												{props.data.comments && (
+													<DataSection>
+														<strong>
+															Comentarios
+														</strong>
+														{props.data.comments
+															.split(";")
+															.map(
+																(
+																	comment,
+																	idx
+																) => (
+																	<p>
+																		{
+																			comment
+																		}
+																	</p>
+																)
+															)}
+													</DataSection>
+												)}
+											</div>
+										</div>
+									</div>
+								</div>
 							</div>
 						</ModalBody>
 					</StyledModal>

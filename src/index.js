@@ -1,6 +1,7 @@
-import "./style.css";
+//import "./style.css";
+import "./sass/main.scss";
+import * as bootstrap from "bootstrap";
 import data from "../json/combinedData_inst.json";
-import Isotope from "isotope-layout";
 import InfiniteScroll from "infinite-scroll";
 import LazyLoad from "vanilla-lazyload";
 
@@ -17,12 +18,6 @@ import RenderCartelModal from "./components/CartelModal";
 
 //console.log(data);
 let cartelesLazyLoad = new LazyLoad();
-
-window.lazyFunctions = {
-  rearrange: function (element) {
-    //iso.arrange();
-  },
-};
 
 let dataLabels = new Set();
 let dataObjects = new Set();
@@ -57,7 +52,7 @@ const $etiquetasSelect = document.querySelector("#etiquetas-select");
 const $objectsSelect = document.querySelector("#objetos-select");
 console.log($titlePlace);
 
-$headerPresentation.prepend(c80Logo);
+//$headerPresentation.prepend(c80Logo);
 
 let COUNT = 0;
 
@@ -204,6 +199,8 @@ const loadDom = (data) => {
       }/${postDate.getFullYear()}`
     );
     wrapper.setAttribute("data-shortcode", d.shortcode);
+    wrapper.classList.add("col-md-3");
+    wrapper.classList.add("col-sm-6");
 
     if (d.comments.length > 0) {
       console.log(d.comments);
@@ -285,7 +282,7 @@ document.addEventListener("click", function (e) {
   //console.log(e.target.parentNode);
   let parent = e.target.parentNode;
 
-  if (e.target && parent.className == "item") {
+  if (e.target && parent.classList.contains("item")) {
     //console.log("clickity");
     let currentLabels = parent.getAttribute("data-labels").split(", ");
     let currentLabels_es = currentLabels.map((label) => {
@@ -313,7 +310,7 @@ document.addEventListener("click", function (e) {
     $modal.classList.remove("-hidden");
     //console.log(JSON.stringify(currentData));
   }
-
+  console.log(e.target.id);
   if (e.target && e.target.id == "closeModal") {
     window.currentData = {};
     RenderCartelModal(window.currentData);
