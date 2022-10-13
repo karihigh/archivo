@@ -1,0 +1,5 @@
+TODO
+
+- Hacer una lista de labels y textos independiente y con una tabla de traducción
+- Hacer una carga progresiva de los contenidos
+- Quitar isotope y hacer que las imágenes se carguen a partir de los datos y no del DOM

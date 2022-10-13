@@ -1,0 +1,78 @@
+//frontend sass
+
+@import url("https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,400;0,700;1,400&display=swap");
+@import url('https://fonts.googleapis.com/css2?family=Merriweather:ital,wght@0,300;0,400;0,700;1,300;1,400;1,700&display=swap');
+
+$c80_gris: #414e62;
+$c80_gris_claro: #ECEDEF;
+$c80_rojo: #E10234;
+
+@import "custom-bootstrap";
+@import "./header.scss";
+@import "./modal.scss";
+
+.grid {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+	justify-content: center;
+	.item {
+		width: 150px;
+		margin: 0 6px 6px 0;
+		@include media-breakpoint-up(sm) {
+			width: 200px;
+			margin: 0 12px 12px 0;
+		}
+	}
+	
+}
+
+.item {
+	//margin-bottom: 24px;
+	img {
+		max-width: 100%;
+		height: auto;
+		cursor: pointer;
+		&:hover {
+			opacity: 0.8
+		}
+	}
+}
+
+#loading {
+	display: none;
+}
+
+body.loading #loading {
+	display: flex;
+}
+
+#resultados-titulo {
+	margin: 24px 0;
+}
+
+.titulo-principal {
+	color: $c80_rojo;
+	letter-spacing: .2rem;
+}
+
+.bajada {
+	color: $c80_rojo;
+	font-weight: 300;
+	font-style: italic;
+	letter-spacing: .05rem;
+}
+
+.introduccion {
+	font-weight: 300;
+	letter-spacing: .05rem;
+	margin-top: 20px;
+}
+
+.filterzone {
+	margin-top: 50px;
+}
+
+.filter-label {
+	color: $c80_gris
+}

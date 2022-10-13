@@ -1,0 +1,129 @@
+header#header-sitio {
+	background-color: $c80_gris_claro;
+	color: $c80_gris;
+	height: 70px;
+}
+
+header#header-sitio a {
+	color: $c80_gris;
+}
+
+/*.home header#header-sitio .first-header-section {
+	display: flex;
+	justify-content: space-between;
+}*/
+
+header#header-sitio h1 {
+	max-width: 150px;
+	float: left;
+}
+
+header#header-sitio h1 img {
+	width: 90px;
+	height: auto;
+	margin: 16px 12px 6px 0;
+}
+
+header#header-sitio h1 a,
+header#header-sitio h1 img {
+	transition: all ease-in 0.1s;
+}
+
+header#header-sitio h1 a:hover {
+	opacity: 0.5;
+}
+
+header#header-sitio h2 {
+	color: $c80_gris;
+}
+
+header#header-sitio #main-nav {
+	position: relative;
+	top: auto;
+	right: auto;
+	display: flex;
+	margin-top: 12px;
+	justify-content: space-around;
+}
+
+header#header-sitio #main-nav .menu-secciones a {
+	background-color: transparent;
+	font-family: 'Merriweather', serif;
+	text-transform: none;
+	font-weight: normal;
+	letter-spacing: inherit;
+	border: 0;
+	font-size: 12px;
+	float: none;
+}
+
+header#header-sitio .menu-secciones {
+	display: flex;
+}
+
+header#header-sitio .menu-secciones ul {
+	display: flex;
+	li {
+		list-style: none;
+		a {
+			font-size: 18px;
+			text-decoration: none;
+			display: block;
+			padding: 12px 0 5px 5px;
+			margin: 0 12px 10px 12px;
+		}
+	}
+}
+
+header#header-sitio #main-nav .menu-secciones a:hover {
+	text-decoration: underline;
+}
+
+header#header-sitio #main-nav li.socials a {
+	margin-top: 0;
+	transition: all ease-in 0.3s;
+}
+
+header#header-sitio #main-nav li.socials a:hover {
+	border: 0;
+	opacity: 0.6;
+}
+
+header#header-sitio #main-nav .menu-secciones ul {
+	display: flex;
+}
+
+.navbar-toggler {
+	position: absolute;
+	top: 14px;
+	right: 12px;
+	border: 1px solid white;
+	border-radius: 3px;
+	font-size: 20px;
+	padding: 6px 12px;
+}
+
+#nav-mobile {
+	position: absolute;
+	top: 70px;
+	width: 100%;
+	background-color: $c80_gris;
+	#menu-movil {
+		border-top: 1px solid white;
+		@include media-breakpoint-up(sm) {
+			border-top: 0;
+		}
+	}
+	li {
+		a {
+			padding: 16px;
+			border-bottom: 1px solid white;
+			font-size: 18px;
+			display: block;
+			text-decoration: none;
+			i {
+				margin-right: 6px;
+			}
+		}
+	}
+}
