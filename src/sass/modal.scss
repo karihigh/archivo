@@ -4,9 +4,15 @@
 	display: flex;
 	flex-wrap: wrap;
 
+	a {
+		text-decoration: none;
+	}
+
 	img {
 		max-width: 100%;
 		height: auto;
+		max-height: 85vh;
+		width: auto;
 	}
 
 	.close-modal {
@@ -33,12 +39,25 @@
 		}
 	}
 
+	.data {
+		display: flex;
+		flex-wrap: wrap;
+		@include media-breakpoint-up(lg) {
+			flex-wrap: nowrap;
+		}
+	}
+
 	.datasection {
-		padding: 6px;
+		padding: 6px 0;
+		margin: 6px 0;
+		@include media-breakpoint-up(lg) {
+			padding: 6px;
+			margin: 12px;
+		}
 
 		span {
 			display: inline-block;
-			padding: 4px 4px 4px 0;
+			padding: 0 6px 0 0;
 		}
 
 		strong {
@@ -46,7 +65,17 @@
 			text-transform: uppercase;
 		}
 
-		margin: 12px;
+		
+	}
+
+	.detectedword {
+		font-style: italic;
+	}
+
+	.modal-body {
+		.row {
+			align-items: flex-end;
+		}
 	}
 }
 

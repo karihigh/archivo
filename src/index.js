@@ -2,8 +2,8 @@
 import "./sass/main.scss";
 import * as bootstrap from "bootstrap";
 import data from "../json/combinedData_inst.json";
-import InfiniteScroll from "infinite-scroll";
 import LazyLoad from "vanilla-lazyload";
+import MagicGrid from "magic-grid";
 
 import labelsTable from "../json/labelsTable";
 import labelsTableES from "../json/labelsTranslationTable";
@@ -51,11 +51,19 @@ const $searchForm = document.getElementById("search-words-form");
 const $searchInput = document.getElementById("search-words");
 const $etiquetasSelect = document.querySelector("#etiquetas-select");
 const $objectsSelect = document.querySelector("#objetos-select");
-console.log($titlePlace);
 
 //$headerPresentation.prepend(c80Logo);
 
 let COUNT = 0;
+// let magicGrid = new MagicGrid({
+//   container: ".grid",
+//   items: perpage * 2,
+//   animate: true,
+//   useTransform: false,
+// });
+
+// magicGrid.listen();
+// //magicGrid.positionItems();
 
 let brokenUrls = [];
 
@@ -74,6 +82,7 @@ const loadImgEl = (url, wrapper, i) => {
     img.setAttribute("data-src", url);
     //img.setAttribute("data-lazy-function", "rearrange");
     resolve({ img: img, wrapper: wrapper });
+    //magicGrid.positionItems();
   });
 };
 
@@ -187,9 +196,9 @@ const loadDom = (data) => {
       words.add(a);
       localWords.push(a);
     });
-    //console.log(d.date);
+
     let postDate = new Date(d.date * 1000);
-    console.log(postDate);
+
     wrapper.setAttribute("data-labels", Array.from(localLabels).join(", "));
     wrapper.setAttribute("data-objects", Array.from(localObjects).join(", "));
     wrapper.setAttribute("data-words", Array.from(localWords).join(", "));
@@ -200,11 +209,9 @@ const loadDom = (data) => {
       }/${postDate.getFullYear()}`
     );
     wrapper.setAttribute("data-shortcode", d.shortcode);
-    wrapper.classList.add("col-md-3");
-    wrapper.classList.add("col-sm-6");
 
     if (d.comments.length > 0) {
-      console.log(d.comments);
+      //console.log(d.comments);
       let comments_content = [];
       let comments_text = d.comments.map((comment) => {
         comments_content.push(`"@${comment.owner.username} - ${comment.text}"`);
@@ -227,7 +234,7 @@ const loadDom = (data) => {
     });
 
     cartelesLazyLoad.update();
-
+    //magicGrid.positionItems();
     loadLock = false;
   });
 };
@@ -242,15 +249,15 @@ window.addEventListener(
     let y = window.scrollY + 780;
     let loadHeight = $grid.offsetHeight;
     let loadTrigger = $wrapper.scrollTop + $wrapper.offsetHeight;
-    console.log(loadHeight, loadTrigger, loadLock);
+    //console.log(loadHeight, loadTrigger, loadLock);
 
     //console.log(loadLock == false, y, loadHeight);
 
     if (loadLock == false && loadTrigger >= loadHeight) {
       pagenumber++;
       loadLock = true;
-      console.log("nextpage");
-      console.log(pagenumber * perpage, pagenumber * perpage + perpage);
+      //console.log("nextpage");
+      //console.log(pagenumber * perpage, pagenumber * perpage + perpage);
 
       if (filteredData.length > 0) {
         loadDom(

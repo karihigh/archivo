@@ -32,86 +32,86 @@ const CartelModal = (props) => {
 								<div className="modal-body">
 									<div className="container">
 										<div className="row">
-											<div className="col-md-12 col-lg-7">
+											<div className="data col">
 												<img src={props.data.image} />
-											</div>
-
-											<div className="data col-lg-5 col-md-12">
-												<div className="datasection">
-													<strong>
-														ID{" "}
-														{props.data.shortcode}
-													</strong>
-												</div>
-												<div className="datasection">
-													<strong>Fecha</strong>{" "}
-													{props.data.date}
-												</div>
-												<div className="datasection">
-													<a
-														href={`https://instagram.com/p/${props.data.shortcode}`}
-													>
-														Link
-													</a>
-												</div>
-												<div className="datasection">
-													<strong>
-														Texto detectado
-													</strong>
-													{props.data.words.map(
-														(word, idx) => (
-															<span key={idx}>
-																{word}
-															</span>
-														)
-													)}
-												</div>
-												<div className="datasection">
-													<strong>Etiquetas</strong>{" "}
-													{props.data.labels.map(
-														(label, idx) => (
-															<span key={idx}>
-																{label}
-															</span>
-														)
-													)}
-												</div>
-												<div className="datasection">
-													<strong>Objetos</strong>
-													{props.data.objects.map(
-														(object, idx) => (
-															<span key={idx}>
-																{object}
-															</span>
-														)
-													)}
-												</div>
-
-												{props.data.comments && (
+												<div className="ficha">
 													<div className="datasection">
 														<strong>
-															Comentarios
+															ID{" "}
+															{
+																props.data
+																	.shortcode
+															}
+															<a
+																target="_blank"
+																href={`https://instagram.com/p/${props.data.shortcode}`}
+															>
+																{" "}
+																<i className="fa fa-link"></i>
+															</a>
 														</strong>
-														{props.data.comments
-															.split(";")
-															.map(
-																(
-																	comment,
-																	idx
-																) => (
-																	<p
-																		key={
-																			idx
-																		}
-																	>
-																		{
-																			comment
-																		}
-																	</p>
-																)
-															)}
+														<p>
+															Publicada el{" "}
+															{props.data.date}{" "}
+															por @chile_carteles
+														</p>
 													</div>
-												)}
+													<div className="datasection">
+														<strong>
+															Texto detectado
+														</strong>
+														{props.data.words.map(
+															(word, idx) => (
+																<span
+																	className="detectedword"
+																	key={idx}
+																>
+																	{word}
+																</span>
+															)
+														)}
+													</div>
+													<div className="datasection">
+														<strong>
+															Etiquetas
+														</strong>{" "}
+														{props.data.labels.join(
+															", "
+														)}
+													</div>
+													<div className="datasection">
+														<strong>Objetos</strong>
+														{props.data.objects.join(
+															", "
+														)}
+													</div>
+
+													{props.data.comments && (
+														<div className="datasection">
+															<strong>
+																Comentarios
+															</strong>
+															{props.data.comments
+																.split(";")
+																.map(
+																	(
+																		comment,
+																		idx
+																	) => (
+																		<p
+																			key={
+																				idx
+																			}
+																		>
+																			{
+																				comment
+																			}
+																		</p>
+																	)
+																)}
+														</div>
+													)}
+												</div>
 											</div>
 										</div>
 									</div>
