@@ -2,8 +2,12 @@
 
 @import url("https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,400;0,700;1,400&display=swap");
 
+$c80_gris: #414e62;
+
 @import "custom-bootstrap";
 @import "./header.scss";
+
+
 
 .item {
 	img {
