@@ -3,7 +3,6 @@ import "./sass/main.scss";
 import * as bootstrap from "bootstrap";
 import data from "../json/combinedData_inst.json";
 import LazyLoad from "vanilla-lazyload";
-import MagicGrid from "magic-grid";
 
 import labelsTable from "../json/labelsTable";
 import labelsTableES from "../json/labelsTranslationTable";
