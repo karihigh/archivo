@@ -1,7 +1,7 @@
 header#header-sitio {
 	background-color: #414e62;
 	color: white;
-	height: 120px;
+	height: 70px;
 }
 
 header#header-sitio a {
@@ -19,8 +19,8 @@ header#header-sitio h1 {
 }
 
 header#header-sitio h1 img {
-	width: 150px;
-	height: 74px;
+	width: 90px;
+	height: auto;
 	margin: 16px 12px 6px 0;
 }
 
@@ -42,7 +42,7 @@ header#header-sitio #main-nav {
 	top: auto;
 	right: auto;
 	display: flex;
-	margin-top: 20px;
+	margin-top: 12px;
 	justify-content: space-around;
 }
 
@@ -80,7 +80,7 @@ header#header-sitio #main-nav .menu-secciones a:hover {
 }
 
 header#header-sitio #main-nav li.socials a {
-	margin-top: 6px;
+	margin-top: 0;
 	transition: all ease-in 0.3s;
 }
 
