@@ -28,6 +28,7 @@ let perpage = 20;
 let pagenumber = 0;
 
 let loadLock = false;
+let modalOpen = false;
 
 const c80Logo = new Image();
 c80Logo.src = logo;
@@ -294,7 +295,7 @@ document.addEventListener("click", function (e) {
       return translatedStringFromArray(object, objectsTable, objectsTableES);
     });
 
-    console.log(currentLabels_es, currentObjects_es);
+    //console.log(currentLabels_es, currentObjects_es);
 
     window.currentData = {
       image: e.target.getAttribute("src"),
@@ -306,15 +307,24 @@ document.addEventListener("click", function (e) {
       shortcode: parent.getAttribute("data-shortcode"),
     };
 
+    modalOpen = true;
+
     RenderCartelModal(window.currentData);
     $modal.classList.remove("-hidden");
     //console.log(JSON.stringify(currentData));
   }
   console.log(e.target.id);
-  if (e.target && e.target.id == "closeModal") {
+  if (e.target && e.target.className == "btn-close") {
     window.currentData = {};
     RenderCartelModal(window.currentData);
     console.log("close");
+    modalOpen = false;
+  }
+  console.log(e.target.classList);
+  if (e.target && e.target.classList.contains("archivo-carteles-modal")) {
+    window.currentData = {};
+    RenderCartelModal(window.currentData);
+    modalOpen = false;
   }
 
   if (e.target && e.target.className == "filter-label") {

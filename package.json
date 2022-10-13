@@ -9,7 +9,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "webpack serve --open",
-    "build": "webpack",
+    "build": "webpack --mode=production",
     "watch": "webpack --watch"
   },
   "repository": {
@@ -54,7 +54,6 @@
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-helmet": "^6.1.0",
-    "styled-components": "^5.3.6",
     "vanilla-lazyload": "^17.8.3"
   }
 }
