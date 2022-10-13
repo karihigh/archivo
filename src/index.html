@@ -139,6 +139,7 @@
           <div class="col col-md-1">
             <h1>
               <a href="https://c80.cl">
+                <!-- cambiar logo por src/img/c80_logo_color.svg -->
                 <img
                   src="https://c80.cl/wp-content/themes/c80-template/dist/img/logoc80tc.svg"
                   alt="c80"
@@ -266,18 +267,18 @@
       </nav>
     </header>
 
-    <div class="container mt-4">
+    <div class="container mt-4" style="max-width: 1100px;">
       <div class="row">
         <div class="col">
           <div class="visualization-description">
             <div>
-              <h1>ARCHIVO CALLE</h1>
-              <h2>¿Qué decían los muros en la revuelta social del 2019?</h2>
-              <p>
-                Visualización archivística con textos, etiquetas y objetos
-                procesados por un algoritmo de visión por computador, extraídos
-                desde 4000 fotos subidas a Instagram durante la revuelta social
-                de octubre 2019.
+              <h5 class="titulo-principal">ARCHIVO CALLE</h5>
+              <h6 class="bajada">¿Qué decían las calles en la revuelta social del 2019? ¿Cómo podríamos leerlas todas de una vez?</h6>
+              <p class="introduccion">
+                El archivo calle intenta responder estas preguntas utilizando nuevas herramientas digitales
+                de procesamiento de imágenes. Busca organizar y comprender algunas de las miles de expresiones de los 
+                y las chilenas durante la revuelta. Aquí puedes ver las imágenes publicadas en (<a href="https://www.instagram.com/chile_carteles/">@chile_carteles</a>)
+                y explorar el archivo ocupando los filtros.
               </p>
             </div>
             <!--  <div class="column column-left">
@@ -289,48 +290,48 @@
 
       <div id="site-header">
         <div class="filterzone row">
-          <div id="etiquetas" class="col">
+          <div id="etiquetas" class="col-md-3">
             <!--Etiquetas placement-->
-            <h2>Etiquetas</h2>
+            <h6 class="filter-label">Etiquetas</h6>
             <select
-              class="form-select form-select-lg"
+              class="form-select form-select-sm"
               aria-label="Escoger etiqueta"
               name="etiquetas-select"
               id="etiquetas-select"
             >
-              <option value="none">Escoge una etiqueta</option>
+              <option value="none">Todas</option>
             </select>
           </div>
 
-          <div id="objetos" class="col-sm-12 col-md-4">
+          <div id="objetos" class="col-sm-12 col-md-3">
             <!--Objetos placement-->
-            <h2>Objetos</h2>
+            <h6 class="filter-label">Objetos</h6>
             <select
-              class="form-select form-select-lg"
+              class="form-select form-select-sm"
               name="objetos-select"
               id="objetos-select"
             >
-              <option value="none">Escoge un objeto</option>
+              <option value="none">Todos</option>
             </select>
           </div>
 
-          <div id="palabras" class="col-sm-12 col-md-4">
-            <h2>Palabras</h2>
+          <div id="palabras" class="col-sm-12 col-md-3 offset-md-2">
+            <h6 class="filter-label">Texto</h6>
             <form id="search-words-form" class="row">
               <div class="col">
                 <input
-                  class="form-control form-control-lg"
+                  class="form-control form-control-sm"
                   type="text"
-                  placeholder="Buscar palabras ..."
+                  placeholder="Buscar por texto"
                   name="search-words"
                   id="search-words"
                 />
               </div>
-              <div class="col-sm-12 col-md-4">
+              <div class="col-sm-12 col-md-1">
                 <input
-                  class="btn btn-primary btn-lg"
+                  class="btn btn-primary btn-sm"
                   type="submit"
-                  value="Buscar..."
+                  value="→"
                 />
               </div>
             </form>

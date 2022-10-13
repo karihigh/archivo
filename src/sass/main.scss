@@ -1,8 +1,11 @@
 //frontend sass
 
 @import url("https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,400;0,700;1,400&display=swap");
+@import url('https://fonts.googleapis.com/css2?family=Merriweather:ital,wght@0,300;0,400;0,700;1,300;1,400;1,700&display=swap');
 
 $c80_gris: #414e62;
+$c80_gris_claro: #ECEDEF;
+$c80_rojo: #E10234;
 
 @import "custom-bootstrap";
 @import "./header.scss";
@@ -46,4 +49,30 @@ body.loading #loading {
 
 #resultados-titulo {
 	margin: 24px 0;
+}
+
+.titulo-principal {
+	color: $c80_rojo;
+	letter-spacing: .2rem;
+}
+
+.bajada {
+	color: $c80_rojo;
+	font-weight: 300;
+	font-style: italic;
+	letter-spacing: .05rem;
+}
+
+.introduccion {
+	font-weight: 300;
+	letter-spacing: .05rem;
+	margin-top: 20px;
+}
+
+.filterzone {
+	margin-top: 50px;
+}
+
+.filter-label {
+	color: $c80_gris
 }
