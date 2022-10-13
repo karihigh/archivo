@@ -5,7 +5,7 @@ const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 module.exports = {
 	entry: { frontend: ["./src/index.js", "./src/sass/main.scss"] },
 	plugins: [
-		new MiniCssExtractPlugin({ filename: "[name].css" }),
+		new MiniCssExtractPlugin({ filename: "[name][contenthash].css" }),
 		new HtmlWebpackPlugin({
 			title: "Archivo Carteles",
 			template: "src/index.html",
