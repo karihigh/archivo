@@ -11,16 +11,25 @@ $c80_rojo: #E10234;
 @import "./header.scss";
 @import "./modal.scss";
 
+
+.wrapper-carteles {
+	padding: 0;
+}
+
+.main-container {
+	position: relative;
+}
+
 .grid {
 	display: flex;
 	flex-wrap: wrap;
 	align-items: center;
-	justify-content: center;
+	justify-content: space-around;
 	.item {
 		width: 150px;
 		margin: 0 6px 6px 0;
 		@include media-breakpoint-up(sm) {
-			width: 200px;
+			width: 195px;
 			margin: 0 12px 12px 0;
 		}
 	}
@@ -76,4 +85,21 @@ h2.bajada {
 
 .filter-label {
 	color: $c80_gris
+}
+
+.nav-proyecto {
+	position: absolute;
+	right: 12px;
+	top: 0;
+	ul {
+		display: flex;
+		li {
+			list-style: none;
+			padding: 6px 12px;
+			font-family: $font-family-serif;
+			text-transform: uppercase;
+			font-size: 16px;
+			cursor: pointer;
+		}
+	}
 }

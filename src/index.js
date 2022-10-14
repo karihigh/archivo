@@ -304,6 +304,8 @@ document.addEventListener("click", function (e) {
     //console.log(currentLabels_es, currentObjects_es);
 
     window.currentData = {
+      modal: true,
+      type: "info",
       image: e.target.getAttribute("src"),
       labels: currentLabels_es,
       objects: currentObjects_es,
@@ -314,19 +316,26 @@ document.addEventListener("click", function (e) {
     };
 
     modalOpen = true;
-
+    console.log(window.currentData);
     RenderCartelModal(window.currentData);
     $modal.classList.remove("-hidden");
     //console.log(JSON.stringify(currentData));
   }
-  console.log(e.target.id);
+
   if (e.target && e.target.className == "btn-close") {
     window.currentData = {};
     RenderCartelModal(window.currentData);
     console.log("close");
     modalOpen = false;
   }
-  console.log(e.target.classList);
+
+  console.log(e.target.className);
+  if (e.target && e.target.className == "about") {
+    window.currentData = {};
+    console.log("click about");
+    RenderCartelModal({ modal: true, type: "about" });
+  }
+
   if (e.target && e.target.classList.contains("archivo-carteles-modal")) {
     window.currentData = {};
     RenderCartelModal(window.currentData);
