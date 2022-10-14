@@ -1,11 +1,21 @@
 header#header-sitio {
-	background-color: $c80_gris_claro;
-	color: $c80_gris;
-	height: 70px;
+	background-color: $c80_gris;
+	color: $c80_gris_claro;
+	height: 50px;
+	font-family: $font-family-sans-serif;
+	.container {
+		.row {
+			justify-content: space-around;
+		}
+	}
+
+	.menu-secciones {
+		justify-content: space-around;
+	}
 }
 
 header#header-sitio a {
-	color: $c80_gris;
+	color: $c80_gris_claro;
 }
 
 /*.home header#header-sitio .first-header-section {
@@ -19,9 +29,12 @@ header#header-sitio h1 {
 }
 
 header#header-sitio h1 img {
-	width: 90px;
+	width: 60px;
 	height: auto;
-	margin: 16px 12px 6px 0;
+	margin: 10px 12px 6px 0;
+	@include media-breakpoint-up(sm) {
+		margin: 2px 12px 6px 0;
+	}
 }
 
 header#header-sitio h1 a,
@@ -42,18 +55,17 @@ header#header-sitio #main-nav {
 	top: auto;
 	right: auto;
 	display: flex;
-	margin-top: 12px;
+	margin-top: 2px;
 	justify-content: space-around;
 }
 
 header#header-sitio #main-nav .menu-secciones a {
 	background-color: transparent;
-	font-family: 'Merriweather', serif;
 	text-transform: none;
 	font-weight: normal;
 	letter-spacing: inherit;
 	border: 0;
-	font-size: 12px;
+	font-size: 16px;
 	float: none;
 }
 
@@ -95,7 +107,7 @@ header#header-sitio #main-nav .menu-secciones ul {
 
 .navbar-toggler {
 	position: absolute;
-	top: 14px;
+	top: 8px;
 	right: 12px;
 	border: 1px solid white;
 	border-radius: 3px;
@@ -105,7 +117,7 @@ header#header-sitio #main-nav .menu-secciones ul {
 
 #nav-mobile {
 	position: absolute;
-	top: 70px;
+	top: 50px;
 	width: 100%;
 	background-color: $c80_gris;
 	#menu-movil {

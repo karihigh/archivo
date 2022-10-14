@@ -1,11 +1,12 @@
 const path = require("path");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
+const devMode = process.env.NODE_ENV !== "production";
 
 module.exports = {
 	entry: { frontend: ["./src/index.js", "./src/sass/main.scss"] },
 	plugins: [
-		new MiniCssExtractPlugin({ filename: "[name][contenthash].css" }),
+		new MiniCssExtractPlugin({ filename: "[name][hash].css" }),
 		new HtmlWebpackPlugin({
 			title: "Archivo Carteles",
 			template: "src/index.html",
@@ -30,7 +31,11 @@ module.exports = {
 			},
 			{
 				test: /\.s?css$/i,
-				use: [MiniCssExtractPlugin.loader, "css-loader", "sass-loader"],
+				use: [
+					devMode ? "style-loader" : MiniCssExtractPlugin.loader,
+					"css-loader",
+					"sass-loader",
+				],
 			},
 			{
 				test: /\.m?js$/,

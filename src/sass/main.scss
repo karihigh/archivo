@@ -51,21 +51,22 @@ body.loading #loading {
 	margin: 24px 0;
 }
 
-.titulo-principal {
+h1.titulo-principal {
 	color: $c80_rojo;
 	letter-spacing: .2rem;
+	font-size: 32px;
 }
 
-.bajada {
+h2.bajada {
 	color: $c80_rojo;
 	font-weight: 300;
 	font-style: italic;
 	letter-spacing: .05rem;
+	font-size: 24px;
 }
 
 .introduccion {
 	font-weight: 300;
-	letter-spacing: .05rem;
 	margin-top: 20px;
 }
 
