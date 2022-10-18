@@ -66,13 +66,7 @@ h1.titulo-principal {
 	font-size: 32px;
 }
 
-h2.bajada {
-	color: $c80_rojo;
-	font-weight: 300;
-	font-style: italic;
-	letter-spacing: .05rem;
-	font-size: 24px;
-}
+
 
 .introduccion {
 	font-weight: 300;
@@ -81,25 +75,14 @@ h2.bajada {
 
 .filterzone {
 	margin-top: 50px;
+	h3 {
+		font-family: $font-family-serif;
+		text-transform: uppercase;
+		margin-bottom: 12px;
+		font-size: 18px;
+	}
 }
 
 .filter-label {
 	color: $c80_gris
-}
-
-.nav-proyecto {
-	position: absolute;
-	right: 12px;
-	top: 0;
-	ul {
-		display: flex;
-		li {
-			list-style: none;
-			padding: 6px 12px;
-			font-family: $font-family-serif;
-			text-transform: uppercase;
-			font-size: 16px;
-			cursor: pointer;
-		}
-	}
 }
