@@ -1,0 +1,117 @@
+//frontend sass
+
+@import url('https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,300;0,400;0,700;1,300;1,400;1,700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Merriweather:ital,wght@0,300;0,400;0,700;1,300;1,400;1,700&display=swap');
+
+$c80_gris: #414e62;
+$c80_gris_claro: #ECEDEF;
+$c80_rojo: #E10234;
+$c80_azul: #3E7BAF;
+
+@import "custom-bootstrap";
+@import "./header.scss";
+@import "./modal.scss";
+
+
+.wrapper-carteles {
+	padding: 0;
+}
+
+.main-container {
+	position: relative;
+}
+
+.grid {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+	justify-content: space-around;
+	.item {
+		width: 150px;
+		margin: 0 6px 6px 0;
+		@include media-breakpoint-up(sm) {
+			width: 195px;
+			margin: 0 12px 12px 0;
+		}
+	}
+	
+}
+
+.item {
+	//margin-bottom: 24px;
+	img {
+		max-width: 100%;
+		height: auto;
+		cursor: pointer;
+		&:hover {
+			opacity: 0.8
+		}
+	}
+}
+
+#loading {
+	display: none;
+}
+
+body.loading #loading {
+	display: flex;
+}
+
+#resultados-titulo {
+	margin: 24px 0;
+	color: $c80_rojo;
+	font-style: italic;
+	font-weight: 300;
+}
+
+h1.titulo-principal {
+	color: $c80_rojo;
+	letter-spacing: .2rem;
+	font-size: 32px;
+}
+
+.introduccion {
+	font-weight: 300;
+	margin-top: 20px;
+}
+
+.filterzone {
+	margin-top: 50px;
+	h3 {
+		font-family: $font-family-serif;
+		text-transform: uppercase;
+		margin-bottom: 12px;
+		font-size: 18px;
+	}
+}
+
+.filter-label {
+	color: $c80_gris
+}
+
+a {
+	color: $c80_azul;
+	text-decoration: none;
+}
+
+a:hover {
+	color: $c80_rojo;
+}
+
+.overline {
+	letter-spacing: 0.15rem;
+}
+
+
+.boton:hover {
+	color: $c80_rojo;
+}
+
+p {
+	font-weight: 300;
+	font-size: 18px;
+}
+
+.sobre-el {
+	margin: 0 48px;
+}

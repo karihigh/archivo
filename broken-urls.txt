@@ -1,4 +1,0 @@
-~~ removed ~~
-0: "https://storage.cloud.google.com/chile-signs/01-signs/00244.jpg"
-1: "https://storage.cloud.google.com/chile-signs/01-signs/00255.jpg"
-2: "https://storage.cloud.google.com/chile-signs/01-signs/00874.jpg"
